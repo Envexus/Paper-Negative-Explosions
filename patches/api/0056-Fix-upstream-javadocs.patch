@@ -75,7 +75,7 @@ index 0cf808356a1a5c6fc4bcf97a694ed9beb80a776a..dc765dea47a9a1c1520fb16ddb24f814
       * @return temperature at given coordinate
       */
 diff --git a/src/main/java/org/bukkit/RegionAccessor.java b/src/main/java/org/bukkit/RegionAccessor.java
-index 369b95b1598a43bc53fb3ea4f69ebea18dc34308..656c060aee5d9ce778638253603ed9475a2612a1 100644
+index 4c9fd558fbf7f57a948fbb7f80f4651048c0fb57..458119a9ef7ce8e1f59bd47caa5b4bc698715440 100644
 --- a/src/main/java/org/bukkit/RegionAccessor.java
 +++ b/src/main/java/org/bukkit/RegionAccessor.java
 @@ -158,7 +158,7 @@ public interface RegionAccessor {
@@ -386,10 +386,10 @@ index ae9eaaa8e38e1d9dfc459926c7fc51ddb89de84a..b2ec535bb1b0ce0c114ddd7638b90218
      @Override
      public int getConversionTime();
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1ebcbad3c 100644
+index 680d8fddb6150a33f3012c348376101607ee2cb2..0b1ad0e33dd4a2b05a0c668562ed59cbf4d6a442 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -431,15 +431,15 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -432,15 +432,15 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Saves the players current location, health, inventory, motion, and
@@ -409,7 +409,7 @@ index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1
       * <p>
       * Note: This will overwrite the players current inventory, health,
       * motion, etc, with the state from the saved dat file.
-@@ -735,7 +735,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -736,7 +736,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
      /**
       * Plays an effect to just this player.
       *
@@ -418,7 +418,7 @@ index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1
       * @param loc the location to play the effect at
       * @param effect the {@link Effect}
       * @param data a data bit needed for some effects
-@@ -1120,7 +1120,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1121,7 +1121,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *
       * Use supplied alternative character to the section symbol to represent legacy color codes.
       *
@@ -427,7 +427,7 @@ index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1
       * @param message The message to send
       * @deprecated use {@link #sendActionBar(net.kyori.adventure.text.Component)}
       */
-@@ -1586,7 +1586,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1587,7 +1587,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Allows this player to see a player that was previously hidden. If
@@ -436,7 +436,7 @@ index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1
       * remain hidden until the other plugin calls this method too.
       *
       * @param plugin Plugin that wants to show the player
-@@ -1615,7 +1615,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1616,7 +1616,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Allows this player to see an entity that was previously hidden. If
@@ -445,6 +445,76 @@ index 05795d5e86c7427bb962144b66e43f68a9fa3ff3..74823885b0836db404737199b21c09c1
       * remain hidden until the other plugin calls this method too.
       *
       * @param plugin Plugin that wants to show the entity
+@@ -1703,9 +1703,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting texture packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is send with "null" as the hash. This might result
+      *     in newer versions not loading the pack correctly.
+      * </ul>
+@@ -1739,9 +1736,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is send with empty string as the hash. This might result
+      *     in newer versions not loading the pack correctly.
+      * </ul>
+@@ -1778,9 +1772,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is sent with empty string as the hash when the hash is
+      *     not provided. This might result in newer versions not loading the
+      *     pack correctly.
+@@ -1823,9 +1814,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is sent with empty string as the hash when the hash is
+      *     not provided. This might result in newer versions not loading the
+      *     pack correctly.
+@@ -1914,9 +1902,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is sent with empty string as the hash when the hash is
+      *     not provided. This might result in newer versions not loading the
+      *     pack correctly.
+@@ -1960,9 +1945,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is sent with empty string as the hash when the hash is
+      *     not provided. This might result in newer versions not loading the
+      *     pack correctly.
+@@ -2054,9 +2036,6 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     case this method will have no affect on them. Use the
+      *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
+      *     the player loaded the pack!
+-     * <li>There is no concept of resetting resource packs back to default
+-     *     within Minecraft, so players will have to relog to do so or you
+-     *     have to send an empty pack.
+      * <li>The request is sent with empty string as the hash when the hash is
+      *     not provided. This might result in newer versions not loading the
+      *     pack correctly.
 diff --git a/src/main/java/org/bukkit/entity/Slime.java b/src/main/java/org/bukkit/entity/Slime.java
 index a5ad3250cebfeb302c58e0bfd6db1295913c927e..bfac874840cf1f36afba16ae4d176c5821a68cfb 100644
 --- a/src/main/java/org/bukkit/entity/Slime.java
@@ -837,10 +907,10 @@ index 6782024735a885ba0b1b4dba4a576740c1410366..8977f7609431c3c46324a82de84d4a32
      @Override
      public HandlerList getHandlers() {
 diff --git a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
-index 4c2102a11c3d682d98f0db4ccafa35231e66bcdd..ca238af544764273b9cd4cf3587e8632031c9ede 100644
+index e4c32b21ab013703a6a1b07a1ad564d914ebe83f..e58fecf0fe54db06e0e944027923a352fd8005d8 100644
 --- a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
 +++ b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
-@@ -5,8 +5,9 @@ import org.bukkit.event.HandlerList;
+@@ -6,8 +6,9 @@ import org.bukkit.event.HandlerList;
  import org.jetbrains.annotations.NotNull;
  
  /**

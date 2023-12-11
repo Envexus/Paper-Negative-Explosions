@@ -5,10 +5,10 @@ Subject: [PATCH] Add isCollidable methods to various places
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 9be00bc616b1c6ad9619d9a48d5870f6d7ffb917..da6e36a16e609272b60fc41ff69a6fa3c34926c0 100644
+index 64ca3c676703eed55b4ac8a2d4561d483c6935b1..9f86ad25a57b3f6e6bda1ce657833837cb3b2292 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -4489,6 +4489,16 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
+@@ -4735,6 +4735,16 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
      public Multimap<Attribute, AttributeModifier> getItemAttributes(@NotNull EquipmentSlot equipmentSlot) {
          return Bukkit.getUnsafe().getItemAttributes(this, equipmentSlot);
      }

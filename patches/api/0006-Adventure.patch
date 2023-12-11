@@ -7,10 +7,10 @@ Co-authored-by: zml <zml@stellardrift.ca>
 Co-authored-by: Jake Potrebic <jake.m.potrebic@gmail.com>
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index ecba866b84bc5f86a442bf220ab24ed8706aadf9..2377d476aee8c88d26ca715fdb756dc97749aac8 100644
+index 41871b8a25798a98b856f1b0034016666216e28f..8324fa4b96ee6cf338e22d525f0d236df3a9addf 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
-@@ -11,12 +11,24 @@ java {
+@@ -11,12 +11,28 @@ java {
  
  val annotationsVersion = "24.0.1"
  val bungeeCordChatVersion = "1.20-R0.1"
@@ -32,11 +32,15 @@ index ecba866b84bc5f86a442bf220ab24ed8706aadf9..2377d476aee8c88d26ca715fdb756dc9
      api("com.google.guava:guava:32.1.2-jre")
      api("com.google.code.gson:gson:2.10.1")
 -    api("net.md-5:bungeecord-chat:$bungeeCordChatVersion")
-+    api("net.md-5:bungeecord-chat:$bungeeCordChatVersion-deprecated+build.14") // Paper
++    // Paper start - adventure
++    api("net.md-5:bungeecord-chat:$bungeeCordChatVersion-deprecated+build.14") {
++        exclude("com.google.guava", "guava")
++    }
++    // Paper - adventure
      api("org.yaml:snakeyaml:2.2")
      api("org.joml:joml:1.10.5")
      // Paper start
-@@ -24,6 +36,13 @@ dependencies {
+@@ -24,6 +40,13 @@ dependencies {
          isTransitive = false // includes junit
      }
      api("it.unimi.dsi:fastutil:8.5.6")
@@ -50,7 +54,7 @@ index ecba866b84bc5f86a442bf220ab24ed8706aadf9..2377d476aee8c88d26ca715fdb756dc9
      // Paper end
  
      compileOnly("org.apache.maven:maven-resolver-provider:3.8.5")
-@@ -100,14 +119,30 @@ tasks.withType<Javadoc> {
+@@ -99,14 +122,30 @@ tasks.withType<Javadoc> {
          "https://guava.dev/releases/32.1.2-jre/api/docs/",
          "https://javadoc.io/doc/org.yaml/snakeyaml/2.2/",
          "https://javadoc.io/doc/org.jetbrains/annotations/$annotationsVersion/", // Paper - we don't want Java 5 annotations
@@ -1415,7 +1419,7 @@ index 0f38cffd9d858eb3b959d30388e82a77af913ecb..be29b60651f0ab9cae4e0a3ff1df4e8b
              throw new UnsupportedOperationException("Not supported yet.");
          }
 diff --git a/src/main/java/org/bukkit/Sound.java b/src/main/java/org/bukkit/Sound.java
-index c5ba0f3ad4df1f52efe9795cfe2ded8783657b40..e30ea44c962f685f216dadd174c91a00d880c5cd 100644
+index 9b1247cdf8a2fed812c46c55193d574aafc3bc94..72ea6ddd00eed73459d700d657929f83ba1ca7ee 100644
 --- a/src/main/java/org/bukkit/Sound.java
 +++ b/src/main/java/org/bukkit/Sound.java
 @@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
@@ -1427,7 +1431,7 @@ index c5ba0f3ad4df1f52efe9795cfe2ded8783657b40..e30ea44c962f685f216dadd174c91a00
  
      AMBIENT_BASALT_DELTAS_ADDITIONS("ambient.basalt_deltas.additions"),
      AMBIENT_BASALT_DELTAS_LOOP("ambient.basalt_deltas.loop"),
-@@ -1512,4 +1512,11 @@ public enum Sound implements Keyed {
+@@ -1614,4 +1614,11 @@ public enum Sound implements Keyed {
      public NamespacedKey getKey() {
          return key;
      }
@@ -2060,10 +2064,10 @@ index b7d8dd30360a38dbdc7bbce40c8e6ced7261f833..0817f2395c2b18828565435568ce651f
      public void sendRawMessage(@Nullable UUID sender, @NotNull String message);
  }
 diff --git a/src/main/java/org/bukkit/enchantments/Enchantment.java b/src/main/java/org/bukkit/enchantments/Enchantment.java
-index e2800dc97af5bbb02c555069285a0fa155a9799d..2dc749936df6168073a5bb9f9051d55f8589ac62 100644
+index c349cd16de02981392a8788ddaa3152e901aacff..6a915b5b41daa5ea64913a2d5c611a6167168395 100644
 --- a/src/main/java/org/bukkit/enchantments/Enchantment.java
 +++ b/src/main/java/org/bukkit/enchantments/Enchantment.java
-@@ -299,6 +299,19 @@ public abstract class Enchantment implements Keyed {
+@@ -295,6 +295,19 @@ public abstract class Enchantment implements Keyed {
       * @return True if the enchantment may be applied, otherwise False
       */
      public abstract boolean canEnchantItem(@NotNull ItemStack item);
@@ -2081,15 +2085,15 @@ index e2800dc97af5bbb02c555069285a0fa155a9799d..2dc749936df6168073a5bb9f9051d55f
 +    public abstract net.kyori.adventure.text.@NotNull Component displayName(int level);
 +    // Paper end
  
-     @Override
-     public boolean equals(Object obj) {
+     /**
+      * Gets the Enchantment at the specified key
 diff --git a/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java b/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
-index 9566e4306ada5e82dede0f002aa06da12c44996b..4d5f0837bd0e02a30c943d8969fb6b13452322e0 100644
+index 7ad7bcf9a9333c8d6d1d7cab53a6d457ec20bbf6..c4f86ba1037f3f0e5d697a0962d71d6f8c7c1fbe 100644
 --- a/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
 +++ b/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
-@@ -63,4 +63,11 @@ public class EnchantmentWrapper extends Enchantment {
-     public boolean conflictsWith(@NotNull Enchantment other) {
-         return getEnchantment().conflictsWith(other);
+@@ -20,4 +20,11 @@ public abstract class EnchantmentWrapper extends Enchantment {
+     public Enchantment getEnchantment() {
+         return this;
      }
 +    // Paper start
 +    @NotNull
@@ -2100,19 +2104,19 @@ index 9566e4306ada5e82dede0f002aa06da12c44996b..4d5f0837bd0e02a30c943d8969fb6b13
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index ead9a9aaad3c7469a9393f3c73aa9a5fdb5b7406..121cd27185269339babae1757a604fbb5aabc869 100644
+index 8532b8484d5a493c1c37ad7508597f624f1831c8..978431fd88cfb7d42fcdea8c904633df5c64daed 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
-@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
- /**
-  * Represents a base entity in the world
+@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
+  * Not all methods are guaranteed to work/may have side effects when
+  * {@link #isInWorld()} is false.
   */
 -public interface Entity extends Metadatable, CommandSender, Nameable, PersistentDataHolder {
 +public interface Entity extends Metadatable, CommandSender, Nameable, PersistentDataHolder, net.kyori.adventure.text.event.HoverEventSource<net.kyori.adventure.text.event.HoverEvent.ShowEntity>, net.kyori.adventure.sound.Sound.Emitter { // Paper
  
      /**
       * Gets the entity's current position
-@@ -724,4 +724,20 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
+@@ -768,4 +768,20 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      @Override
      Spigot spigot();
      // Spigot end
@@ -2134,10 +2138,10 @@ index ead9a9aaad3c7469a9393f3c73aa9a5fdb5b7406..121cd27185269339babae1757a604fbb
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa8cf3ae37 100644
+index 8aee70e27688ff85367b3534c6ccb64aeba95d74..7a6be9c1d74fca1b03bf4c6ef804e8027201b8e7 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -51,7 +51,41 @@ import org.jetbrains.annotations.Nullable;
+@@ -52,7 +52,41 @@ import org.jetbrains.annotations.Nullable;
  /**
   * Represents a player, connected or not
   */
@@ -2180,7 +2184,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
  
      /**
       * {@inheritDoc}
-@@ -68,7 +102,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -69,7 +103,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * places defined by plugins.
       *
       * @return the friendly name
@@ -2190,7 +2194,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      @NotNull
      public String getDisplayName();
  
-@@ -80,15 +116,50 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -81,15 +117,50 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * places defined by plugins.
       *
       * @param name The new display name.
@@ -2241,7 +2245,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public String getPlayerListName();
  
      /**
-@@ -97,14 +168,18 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -98,14 +169,18 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * If the value is null, the name will be identical to {@link #getName()}.
       *
       * @param name new player list name
@@ -2260,7 +2264,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      @Nullable
      public String getPlayerListHeader();
  
-@@ -112,7 +187,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -113,7 +188,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * Gets the currently displayed player list footer for this player.
       *
       * @return player list header or null
@@ -2270,7 +2274,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      @Nullable
      public String getPlayerListFooter();
  
-@@ -120,14 +197,18 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -121,14 +198,18 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * Sets the currently displayed player list header for this player.
       *
       * @param header player list header, null for empty
@@ -2289,7 +2293,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void setPlayerListFooter(@Nullable String footer);
  
      /**
-@@ -136,7 +217,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -137,7 +218,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *
       * @param header player list header, null for empty
       * @param footer player list footer, null for empty
@@ -2299,7 +2303,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void setPlayerListHeaderFooter(@Nullable String header, @Nullable String footer);
  
      /**
-@@ -174,9 +257,25 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -175,9 +258,25 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * Kicks player with custom kick message.
       *
       * @param message kick message
@@ -2325,7 +2329,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      /**
       * Adds this user to the {@link ProfileBanList}. If a previous ban exists, this will
       * update the entry.
-@@ -798,6 +897,106 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -799,6 +898,106 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      public void sendEquipmentChange(@NotNull LivingEntity entity, @NotNull Map<EquipmentSlot, ItemStack> items);
  
@@ -2432,7 +2436,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      /**
       * Send a sign change. This fakes a sign change packet for a user at
       * a certain location. This will not actually change the world in any way.
-@@ -815,7 +1014,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -816,7 +1015,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @param lines the new text on the sign or null to clear it
       * @throws IllegalArgumentException if location is null
       * @throws IllegalArgumentException if lines is non-null and has a length less than 4
@@ -2444,7 +2448,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void sendSignChange(@NotNull Location loc, @Nullable String[] lines) throws IllegalArgumentException;
  
      /**
-@@ -837,7 +1040,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -838,7 +1041,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @throws IllegalArgumentException if location is null
       * @throws IllegalArgumentException if dyeColor is null
       * @throws IllegalArgumentException if lines is non-null and has a length less than 4
@@ -2456,7 +2460,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void sendSignChange(@NotNull Location loc, @Nullable String[] lines, @NotNull DyeColor dyeColor) throws IllegalArgumentException;
  
      /**
-@@ -860,7 +1067,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -861,7 +1068,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @throws IllegalArgumentException if location is null
       * @throws IllegalArgumentException if dyeColor is null
       * @throws IllegalArgumentException if lines is non-null and has a length less than 4
@@ -2468,35 +2472,44 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void sendSignChange(@NotNull Location loc, @Nullable String[] lines, @NotNull DyeColor dyeColor, boolean hasGlowingText) throws IllegalArgumentException;
  
      /**
-@@ -1376,6 +1587,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1309,7 +1520,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      * @throws IllegalArgumentException Thrown if the URL is null.
+      * @throws IllegalArgumentException Thrown if the URL is too long.
+      * @deprecated Minecraft no longer uses textures packs. Instead you
+-     *     should use {@link #setResourcePack(String)}.
++     *     should use {@link #setResourcePack(UUID, String, byte[], net.kyori.adventure.text.Component, boolean)}.
+      */
+     @Deprecated
+     public void setTexturePack(@NotNull String url);
+@@ -1377,6 +1588,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *     pack correctly.
       * </ul>
       *
-+     * @deprecated in favour of {@link #setResourcePack(String, byte[], net.kyori.adventure.text.Component)}
++     * @deprecated in favour of {@link #setResourcePack(UUID, String, byte[], net.kyori.adventure.text.Component, boolean)}
       * @param url The URL from which the client will download the resource
       *     pack. The string must contain only US-ASCII characters and should
       *     be encoded as per RFC 1738.
-@@ -1388,6 +1600,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1389,6 +1601,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
       *     long.
       */
-+    @Deprecated // Paper
++    @Deprecated // Paper - adventure
      public void setResourcePack(@NotNull String url, @Nullable byte[] hash);
  
      /**
-@@ -1419,6 +1632,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1420,6 +1633,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *     pack correctly.
       * </ul>
       *
-+     * @deprecated in favour of {@link #setResourcePack(String, byte[], net.kyori.adventure.text.Component)}
++     * @deprecated in favour of {@link #setResourcePack(UUID, String, byte[], net.kyori.adventure.text.Component, boolean)}
       * @param url The URL from which the client will download the resource
       *     pack. The string must contain only US-ASCII characters and should
       *     be encoded as per RFC 1738.
-@@ -1432,8 +1646,57 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1433,8 +1647,54 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
       *     long.
       */
-+    @Deprecated // Paper
++    @Deprecated // Paper - adventure
      public void setResourcePack(@NotNull String url, @Nullable byte[] hash, @Nullable String prompt);
  
 +    // Paper start
@@ -2521,9 +2534,6 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
 +     *     case this method will have no affect on them. Use the
 +     *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
 +     *     the player loaded the pack!
-+     * <li>There is no concept of resetting resource packs back to default
-+     *     within Minecraft, so players will have to relog to do so or you
-+     *     have to send an empty pack.
 +     * <li>The request is sent with empty string as the hash when the hash is
 +     *     not provided. This might result in newer versions not loading the
 +     *     pack correctly.
@@ -2542,7 +2552,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
 +     * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
 +     *     long.
 +     */
-+    default void setResourcePack(@NotNull String url, byte @Nullable [] hash, net.kyori.adventure.text.@Nullable Component prompt) {
++    default void setResourcePack(final @NotNull String url, final byte @Nullable [] hash, final net.kyori.adventure.text.@Nullable Component prompt) {
 +        this.setResourcePack(url, hash, prompt, false);
 +    }
 +    // Paper end
@@ -2550,7 +2560,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      /**
       * Request that the player's client download and switch resource packs.
       * <p>
-@@ -1463,6 +1726,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1464,6 +1724,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *     pack correctly.
       * </ul>
       *
@@ -2558,7 +2568,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
       * @param url The URL from which the client will download the resource
       *     pack. The string must contain only US-ASCII characters and should
       *     be encoded as per RFC 1738.
-@@ -1523,8 +1787,57 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1524,8 +1785,56 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
       *     long.
       */
@@ -2587,9 +2597,6 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
 +     *     case this method will have no affect on them. Use the
 +     *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
 +     *     the player loaded the pack!
-+     * <li>There is no concept of resetting resource packs back to default
-+     *     within Minecraft, so players will have to relog to do so or you
-+     *     have to send an empty pack.
 +     * <li>The request is sent with empty string as the hash when the hash is
 +     *     not provided. This might result in newer versions not loading the
 +     *     pack correctly.
@@ -2610,13 +2617,73 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
 +     * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
 +     *     long.
 +     */
-+    public void setResourcePack(@NotNull String url, byte @Nullable [] hash, net.kyori.adventure.text.@Nullable Component prompt, boolean force);
++    default void setResourcePack(final @NotNull String url, final byte @Nullable [] hash, final net.kyori.adventure.text.@Nullable Component prompt, final boolean force) {
++        this.setResourcePack(UUID.nameUUIDFromBytes(url.getBytes(java.nio.charset.StandardCharsets.UTF_8)), url, hash, prompt, force);
++    }
++    // Paper end
++
+     /**
+      * Request that the player's client download and switch resource packs.
+      * <p>
+@@ -1570,9 +1879,57 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      *     length restriction is an implementation specific arbitrary value.
+      * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
+      *     long.
++     * @deprecated use {@link #setResourcePack(UUID, String, byte[], net.kyori.adventure.text.Component, boolean)} )}
+      */
++    @Deprecated // Paper - adventure
+     public void setResourcePack(@NotNull UUID id, @NotNull String url, @Nullable byte[] hash, @Nullable String prompt, boolean force);
+ 
++    // Paper start
++    /**
++     * Request that the player's client download and switch resource packs.
++     * <p>
++     * The player's client will download the new resource pack asynchronously
++     * in the background, and will automatically switch to it once the
++     * download is complete. If the client has downloaded and cached a
++     * resource pack with the same hash in the past it will not download but
++     * directly apply the cached pack. If the hash is null and the client has
++     * downloaded and cached the same resource pack in the past, it will
++     * perform a file size check against the response content to determine if
++     * the resource pack has changed and needs to be downloaded again. When
++     * this request is sent for the very first time from a given server, the
++     * client will first display a confirmation GUI to the player before
++     * proceeding with the download.
++     * <p>
++     * Notes:
++     * <ul>
++     * <li>Players can disable server resources on their client, in which
++     *     case this method will have no affect on them. Use the
++     *     {@link PlayerResourcePackStatusEvent} to figure out whether or not
++     *     the player loaded the pack!
++     * <li>The request is sent with empty string as the hash when the hash is
++     *     not provided. This might result in newer versions not loading the
++     *     pack correctly.
++     * </ul>
++     *
++     * @param uuid Unique resource pack ID.
++     * @param url The URL from which the client will download the resource
++     *     pack. The string must contain only US-ASCII characters and should
++     *     be encoded as per RFC 1738.
++     * @param hash The sha1 hash sum of the resource pack file which is used
++     *     to apply a cached version of the pack directly without downloading
++     *     if it is available. Hast to be 20 bytes long!
++     * @param prompt The optional custom prompt message to be shown to client.
++     * @param force If true, the client will be disconnected from the server
++     *     when it declines to use the resource pack.
++     * @throws IllegalArgumentException Thrown if the URL is null.
++     * @throws IllegalArgumentException Thrown if the URL is too long. The
++     *     length restriction is an implementation specific arbitrary value.
++     * @throws IllegalArgumentException Thrown if the hash is not 20 bytes
++     *     long.
++     */
++    void setResourcePack(@NotNull UUID uuid, @NotNull String url, byte @Nullable [] hash, net.kyori.adventure.text.@Nullable Component prompt, boolean force);
 +    // Paper end
 +
      /**
       * Gets the Scoreboard displayed to this player
       *
-@@ -1659,7 +1972,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1707,7 +2064,7 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       *
       * @param title Title text
       * @param subtitle Subtitle text
@@ -2625,7 +2692,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
       */
      @Deprecated
      public void sendTitle(@Nullable String title, @Nullable String subtitle);
-@@ -1678,7 +1991,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1726,7 +2083,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @param fadeIn time in ticks for titles to fade in. Defaults to 10.
       * @param stay time in ticks for titles to stay. Defaults to 70.
       * @param fadeOut time in ticks for titles to fade out. Defaults to 20.
@@ -2635,7 +2702,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public void sendTitle(@Nullable String title, @Nullable String subtitle, int fadeIn, int stay, int fadeOut);
  
      /**
-@@ -1905,6 +2220,14 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1953,6 +2312,14 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      public int getClientViewDistance();
  
@@ -2650,7 +2717,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      /**
       * Gets the player's estimated ping in milliseconds.
       *
-@@ -1930,8 +2253,10 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1978,8 +2345,10 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * they wish.
       *
       * @return the player's locale
@@ -2661,7 +2728,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      public String getLocale();
  
      /**
-@@ -1983,6 +2308,14 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2031,6 +2400,14 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      public boolean isAllowingServerListings();
  
@@ -2676,7 +2743,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
      // Spigot start
      public class Spigot extends Entity.Spigot {
  
-@@ -2014,11 +2347,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2062,11 +2439,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
              throw new UnsupportedOperationException("Not supported yet.");
          }
  
@@ -2690,7 +2757,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
          @Override
          public void sendMessage(@NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
              throw new UnsupportedOperationException("Not supported yet.");
-@@ -2029,7 +2364,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2077,7 +2456,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
           *
           * @param position the screen position
           * @param component the components to send
@@ -2700,7 +2767,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
          public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent component) {
              throw new UnsupportedOperationException("Not supported yet.");
          }
-@@ -2039,7 +2376,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2087,7 +2468,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
           *
           * @param position the screen position
           * @param components the components to send
@@ -2710,7 +2777,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
          public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
              throw new UnsupportedOperationException("Not supported yet.");
          }
-@@ -2050,7 +2389,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2098,7 +2481,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
           * @param position the screen position
           * @param sender the sender of the message
           * @param component the components to send
@@ -2720,7 +2787,7 @@ index fc37e0c604e44dd2df54b51cd2f10dd9004f1d98..3f9ed7dfb4633804fe86857dcc9f57aa
          public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @Nullable java.util.UUID sender, @NotNull net.md_5.bungee.api.chat.BaseComponent component) {
              throw new UnsupportedOperationException("Not supported yet.");
          }
-@@ -2061,7 +2402,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2109,7 +2494,9 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
           * @param position the screen position
           * @param sender the sender of the message
           * @param components the components to send
@@ -3024,10 +3091,10 @@ index 3c2ea8fec3a748cab7f5ad9100d12bd8213ec6c9..a803bfea5400b3578bb4cf3261874e87
       * Gets how much EXP the Player should have at respawn.
       * <p>
 diff --git a/src/main/java/org/bukkit/event/inventory/InventoryType.java b/src/main/java/org/bukkit/event/inventory/InventoryType.java
-index ec9f58ea221bfcde706d2454483888c54d44023a..19ba2d948ad83baab2a14ae6f7b3ce43c3d4971f 100644
+index a2e9bedc4d7c56f1ae6bd6ace2dff41537e41829..c3aeb1b622509ecd9e2230ce82e3bf07899fa540 100644
 --- a/src/main/java/org/bukkit/event/inventory/InventoryType.java
 +++ b/src/main/java/org/bukkit/event/inventory/InventoryType.java
-@@ -155,6 +155,18 @@ public enum InventoryType {
+@@ -163,6 +163,18 @@ public enum InventoryType {
      private final String title;
      private final boolean isCreatable;
  
@@ -3046,7 +3113,7 @@ index ec9f58ea221bfcde706d2454483888c54d44023a..19ba2d948ad83baab2a14ae6f7b3ce43
      private InventoryType(int defaultSize, /*@NotNull*/ String defaultTitle) {
          this(defaultSize, defaultTitle, true);
      }
-@@ -163,6 +175,7 @@ public enum InventoryType {
+@@ -171,6 +183,7 @@ public enum InventoryType {
          size = defaultSize;
          title = defaultTitle;
          this.isCreatable = isCreatable;
@@ -3054,7 +3121,7 @@ index ec9f58ea221bfcde706d2454483888c54d44023a..19ba2d948ad83baab2a14ae6f7b3ce43
      }
  
      public int getDefaultSize() {
-@@ -170,6 +183,7 @@ public enum InventoryType {
+@@ -178,6 +191,7 @@ public enum InventoryType {
      }
  
      @NotNull

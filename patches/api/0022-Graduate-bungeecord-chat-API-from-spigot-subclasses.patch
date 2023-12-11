@@ -76,10 +76,10 @@ index 7ee7fdc8379078456492da00bb213a0738cc6f08..d94483d1481f233897faf378e6b34b6b
       * Gets the name of the update folder. The update folder is used to safely
       * update plugins at the right moment on a plugin load.
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index fa7637dd594821ffd20a53c6c7f5b3d9fa107564..944153f0d72c6ff5b7250e3d4b4591829deb16c2 100644
+index 17c3fcaca46e1e8f4c14026ee7a6a2d7a472b90c..602d8b81135eba0481280c887f44f1c1855044e1 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1102,6 +1102,42 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1103,6 +1103,42 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      public void sendMap(@NotNull MapView map);
  

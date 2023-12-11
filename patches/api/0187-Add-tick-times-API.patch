@@ -5,7 +5,7 @@ Subject: [PATCH] Add tick times API
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 9d241ad740e0405bfe2e86e349ec565b20dba14f..06540f4122165c42e1726c9177aba19be1677edf 100644
+index f11c8e344694610b4a3f5ce945afb5ba876de33d..1a66d6314765840f529900a850265ed20173fd9b 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -2111,6 +2111,25 @@ public final class Bukkit {
@@ -35,7 +35,7 @@ index 9d241ad740e0405bfe2e86e349ec565b20dba14f..06540f4122165c42e1726c9177aba19b
  
      /**
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 102d5058e6d2b83aca6504e98012cb4318fdd3e6..b862ce8dfb979f629436204ca326a30b5ace4574 100644
+index 54400edeb6a2245bed7824db2a5c9b7a1ba76eda..88bb506880fa019881e95a2cc07915841c2028e7 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1787,6 +1787,21 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi

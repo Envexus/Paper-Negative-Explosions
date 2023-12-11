@@ -5,7 +5,7 @@ Subject: [PATCH] Expose the internal current tick
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 20e8bee8a686f8d37d770d8714c5c55af8491584..9d241ad740e0405bfe2e86e349ec565b20dba14f 100644
+index 87d2348f39e2e43c782c1b7bf73ec38c52e67f95..f11c8e344694610b4a3f5ce945afb5ba876de33d 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -2439,6 +2439,10 @@ public final class Bukkit {
@@ -20,7 +20,7 @@ index 20e8bee8a686f8d37d770d8714c5c55af8491584..9d241ad740e0405bfe2e86e349ec565b
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index ef71d6036d1df19c730b4d525862f11f3ee5ccb4..102d5058e6d2b83aca6504e98012cb4318fdd3e6 100644
+index 3cf66dde58cbe92cf9273c482af378058708b15b..54400edeb6a2245bed7824db2a5c9b7a1ba76eda 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -2125,5 +2125,12 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi

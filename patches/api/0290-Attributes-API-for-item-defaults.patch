@@ -5,10 +5,10 @@ Subject: [PATCH] Attributes API for item defaults
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index cfe35b0ca1f502c5c9af0d307bd22dcecc3b0f32..9be00bc616b1c6ad9619d9a48d5870f6d7ffb917 100644
+index 8fd928cfe61ab6f06c52eb5e4561fd6860e1f8d9..64ca3c676703eed55b4ac8a2d4561d483c6935b1 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -4474,6 +4474,21 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
+@@ -4720,6 +4720,21 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
      public io.papermc.paper.inventory.ItemRarity getItemRarity() {
          return Bukkit.getUnsafe().getItemRarity(this);
      }

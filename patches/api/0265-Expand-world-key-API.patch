@@ -28,7 +28,7 @@ index c9f4ec3ff1aaca2f75fe0a7f0c85d63f3dfd97f8..1e6307106391056af17add97080cd1f1
      /**
       * Create a new virtual {@link WorldBorder}.
 diff --git a/src/main/java/org/bukkit/RegionAccessor.java b/src/main/java/org/bukkit/RegionAccessor.java
-index 3e5597bac0971f28009a50bfde0cd7f0f10bd876..60ed2b36e18032270c0689cb2405a63a8a962fad 100644
+index 27eff0826d5b5b48697fefd9571886e7bbce74b1..d8b1fa79dc24138dc71e32c14bda71c1d570ed88 100644
 --- a/src/main/java/org/bukkit/RegionAccessor.java
 +++ b/src/main/java/org/bukkit/RegionAccessor.java
 @@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
@@ -40,7 +40,7 @@ index 3e5597bac0971f28009a50bfde0cd7f0f10bd876..60ed2b36e18032270c0689cb2405a63a
  
      /**
       * Gets the {@link Biome} at the given {@link Location}.
-@@ -423,5 +423,14 @@ public interface RegionAccessor {
+@@ -452,5 +452,14 @@ public interface RegionAccessor {
       */
      @NotNull
      io.papermc.paper.world.MoonPhase getMoonPhase();

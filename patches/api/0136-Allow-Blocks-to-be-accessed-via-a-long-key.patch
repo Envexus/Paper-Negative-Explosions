@@ -18,7 +18,7 @@ Y range: [0, 1023]
 X, Z range: [-67 108 864, 67 108 863]
 
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index 189c2159941712a6f22bb5aaf1e8ca80b4eb54f6..09d1f9f909c971d6a785e9f98278f8c55cd44637 100644
+index 41125de49db8eafce4be59cc110ce5be06836a47..34eeed3ec165bee9d9172ea636b1cc2d7d05f938 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
@@ -50,7 +50,7 @@ index 189c2159941712a6f22bb5aaf1e8ca80b4eb54f6..09d1f9f909c971d6a785e9f98278f8c5
       * @return A new location where X/Y/Z are the center of the block
       */
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index f21d3ab534a64a5445975968b63fc78d7dc2fa72..fef21d398d9c9349e10e59b62cbbe28e9538482d 100644
+index be0e1ad34c526f2bd7b80f035c79b07e3b3ef5fb..55c0ad31ae8f1831c43404abb7e2e62da63885ce 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -97,6 +97,41 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient

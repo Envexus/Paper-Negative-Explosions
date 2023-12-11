@@ -285,10 +285,10 @@ index 0b202d378d50946f43434e70d9d511cac06749b0..cf42f6e57e96aa9cb4465e34a6e3f870
          if (this.world == null) {
              return null;
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 48a42faffc5e117b6d18bc21265caa150117e3ef..2d7cd77002c32e88bfa677f86d645ee6b541062c 100644
+index 55fa9e8385e26aecb5690f623c2893972dc2a234..c24fe19600fa8440c130eaea247d5874da3873ec 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -4459,20 +4459,20 @@ public enum Material implements Keyed, Translatable {
+@@ -4705,20 +4705,20 @@ public enum Material implements Keyed, Translatable {
       * Do not use for any reason.
       *
       * @return ID of this material
@@ -313,7 +313,7 @@ index 48a42faffc5e117b6d18bc21265caa150117e3ef..2d7cd77002c32e88bfa677f86d645ee6
      public boolean isLegacy() {
          return legacy;
      }
-@@ -4543,8 +4543,10 @@ public enum Material implements Keyed, Translatable {
+@@ -4789,8 +4789,10 @@ public enum Material implements Keyed, Translatable {
       * Gets the MaterialData class associated with this Material
       *
       * @return MaterialData associated with this Material
@@ -324,7 +324,7 @@ index 48a42faffc5e117b6d18bc21265caa150117e3ef..2d7cd77002c32e88bfa677f86d645ee6
      public Class<? extends MaterialData> getData() {
          Preconditions.checkArgument(legacy, "Cannot get data class of Modern Material");
          return ctor.getDeclaringClass();
-@@ -8682,7 +8684,11 @@ public enum Material implements Keyed, Translatable {
+@@ -9052,7 +9054,11 @@ public enum Material implements Keyed, Translatable {
       * material.
       *
       * @return true if this material can be interacted with.
@@ -438,7 +438,7 @@ index 48aecc9421c500137bbef1dfe3bec8de277c3ff9..aff858346776386f1288b648b221404f
          return note;
      }
 diff --git a/src/main/java/org/bukkit/Particle.java b/src/main/java/org/bukkit/Particle.java
-index 81bd12c8addcee754c71e5e030c729c7e096fb4c..6992600d6cff9ed0a30d37ac4dc5dc0e56ecb2c7 100644
+index 26d02aa5da444112f8fa84c07e3080bb669983a1..0cb15350704955f4a1aeff184a8b60d9a9871ded 100644
 --- a/src/main/java/org/bukkit/Particle.java
 +++ b/src/main/java/org/bukkit/Particle.java
 @@ -54,7 +54,9 @@ public enum Particle implements Keyed {
@@ -451,7 +451,7 @@ index 81bd12c8addcee754c71e5e030c729c7e096fb4c..6992600d6cff9ed0a30d37ac4dc5dc0e
      BLOCK_DUST("block", BlockData.class, false),
      WATER_DROP("rain"),
      MOB_APPEARANCE("elder_guardian"),
-@@ -138,15 +140,21 @@ public enum Particle implements Keyed {
+@@ -148,15 +150,21 @@ public enum Particle implements Keyed {
      // ----- Legacy Separator -----
      /**
       * Uses {@link MaterialData} as DataType
@@ -474,10 +474,10 @@ index 81bd12c8addcee754c71e5e030c729c7e096fb4c..6992600d6cff9ed0a30d37ac4dc5dc0e
  
      private final NamespacedKey key;
 diff --git a/src/main/java/org/bukkit/Registry.java b/src/main/java/org/bukkit/Registry.java
-index c373614a865d6df8a2fe265497cf0b5f074490b0..8e0f985e8a6af728376a85eef998f7881e50786c 100644
+index 6455163261082c444985bc58b188d224517d4529..613cd9c2e91a851c86e339d2be86981b57669311 100644
 --- a/src/main/java/org/bukkit/Registry.java
 +++ b/src/main/java/org/bukkit/Registry.java
-@@ -197,14 +197,14 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
+@@ -198,14 +198,14 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
       *
       * @see TrimMaterial
       */
@@ -494,7 +494,7 @@ index c373614a865d6df8a2fe265497cf0b5f074490b0..8e0f985e8a6af728376a85eef998f788
      Registry<TrimPattern> TRIM_PATTERN = Bukkit.getRegistry(TrimPattern.class);
      /**
       * Villager profession.
-@@ -286,8 +286,11 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
+@@ -287,8 +287,11 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
       *
       * @param input non-null input
       * @return registered object or null if does not exist
@@ -789,10 +789,10 @@ index 605af1a9fc48602643aec57dd14e8c4ab657a0bc..b3085c7ff8b3e96083d209f6612c0065
  
      /**
 diff --git a/src/main/java/org/bukkit/entity/EntityType.java b/src/main/java/org/bukkit/entity/EntityType.java
-index bb9ae81870a340c00d7480aff5106dc2c44dab8a..2522f7798962695577479a75f3095b72ee76e442 100644
+index e3f440c9d9ce3b5710ed1b7f71522899fb98459f..a4578c520aa1078a741aac4b12fe89bf82b3c465 100644
 --- a/src/main/java/org/bukkit/entity/EntityType.java
 +++ b/src/main/java/org/bukkit/entity/EntityType.java
-@@ -389,9 +389,9 @@ public enum EntityType implements Keyed, Translatable {
+@@ -397,9 +397,9 @@ public enum EntityType implements Keyed, Translatable {
       *
       * @param name the entity type's name
       * @return the matching entity type or null
@@ -895,10 +895,10 @@ index 95c79c5fa0c4e30201f887da6467ce5f81c8a255..7f9c4d4b430a3f0276461346ff2621ba
  
      /**
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index d6af835abd8b31cf177ad2912215d80ff7629e64..c463a52aef540e7b69c5ea32bce1239ed6c57a4f 100644
+index fe06d06cf97b1b020c771fb455f644d68097f1ef..1afa65152f56e42793cb53a049e06b16eabe2ce4 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1497,11 +1497,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1498,11 +1498,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Forces an update of the player's entire inventory.
@@ -1913,10 +1913,10 @@ index 0ea9c6b2420a0f990bd1fdf50fc015e37a7060d8..e99644eae1c662b117aa19060d2484ac
  
      /**
 diff --git a/src/main/java/org/bukkit/potion/PotionEffectType.java b/src/main/java/org/bukkit/potion/PotionEffectType.java
-index 5f3aa6fd18d57055a6d8494938dff149d51b2803..ceba656b25f74d4bb2eadb9a7eca184b069b4909 100644
+index b7c394fb70cc3449e5c9c5756956d9b048b5c019..3070f039a583647e7c9a8f15d63291cd265db9fc 100644
 --- a/src/main/java/org/bukkit/potion/PotionEffectType.java
 +++ b/src/main/java/org/bukkit/potion/PotionEffectType.java
-@@ -220,9 +220,9 @@ public abstract class PotionEffectType implements Keyed {
+@@ -239,9 +239,9 @@ public abstract class PotionEffectType implements Keyed {
       * Returns the unique ID of this type.
       *
       * @return Unique ID
@@ -1925,10 +1925,10 @@ index 5f3aa6fd18d57055a6d8494938dff149d51b2803..ceba656b25f74d4bb2eadb9a7eca184b
       */
 -    @Deprecated
 +    @Deprecated(forRemoval = true, since = "1.20.2") // Paper
-     public int getId() {
-         return id;
-     }
-@@ -304,9 +304,9 @@ public abstract class PotionEffectType implements Keyed {
+     public abstract int getId();
+ 
+     /**
+@@ -277,9 +277,9 @@ public abstract class PotionEffectType implements Keyed {
       *
       * @param id Unique ID to fetch
       * @return Resulting type, or null if not found.
@@ -1939,7 +1939,7 @@ index 5f3aa6fd18d57055a6d8494938dff149d51b2803..ceba656b25f74d4bb2eadb9a7eca184b
 +    @org.jetbrains.annotations.ApiStatus.Internal // Paper
      @Nullable
      public static PotionEffectType getById(int id) {
-         if (id >= byId.length || id < 0)
+         PotionEffectType type = ID_MAP.get(id);
 diff --git a/src/test/java/org/bukkit/materials/MaterialDataTest.java b/src/test/java/org/bukkit/materials/MaterialDataTest.java
 index 8d78435cc42a9e668b2d4d674b79b4094c3bd1b1..24a8ce4387b897c717b55405f363ffafff45894d 100644
 --- a/src/test/java/org/bukkit/materials/MaterialDataTest.java

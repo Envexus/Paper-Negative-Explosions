@@ -321,7 +321,7 @@ index 0000000000000000000000000000000000000000..7b3b6ef533d32169fbeca389bd61cfc6
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 365c2cd4f5a3a382d3b52b50377fbf56731a30ae..87ce6947a1e974c18e84f56ba622bee9fff3570b 100644
+index a1c8cb4d89147311539a70901c74eae4020c022f..8f1f432c9d6c68ac142401626adaf1dc212181f2 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -2304,6 +2304,83 @@ public final class Bukkit {
@@ -409,7 +409,7 @@ index 365c2cd4f5a3a382d3b52b50377fbf56731a30ae..87ce6947a1e974c18e84f56ba622bee9
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 36d07fda939a5e1b4acf77d9092bfc42bbd27d78..bc68d8af8b38232392a12ef5f338e85ca80bccd0 100644
+index 95d1e6c57c3331ce3badfb5269531dce490d4079..aad8b2fbdbb03fbf32f99b3a533716eca9d42219 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -2024,5 +2024,74 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi

@@ -24,10 +24,10 @@ index 7dc808f94c42e821fa125073b1a9b853e16d5b41..fc0356b0600946af0a46312cee16b080
       * Creates and returns the next EntityId available.
       * <p>
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index e0e3af0f229f8af66de70d7b741200e301476677..765777b10f5984b0fbdf22ef884e79745d06b4ff 100644
+index d98fe98f703ff478ea4427783fd68debe9a6f267..6356370eed537cec782f036dc73fe5bfbe4c1fb7 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
-@@ -850,5 +850,32 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
+@@ -894,5 +894,32 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
       */
      @Deprecated
      @NotNull Set<Player> getTrackedPlayers();

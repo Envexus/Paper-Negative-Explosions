@@ -44,7 +44,7 @@ index efbfed855248cff8b4bdbfc181d3e82058df4749..766d643f0fe79660942fdad25e39e488
       * Gets the world containing this chunk
       *
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index ffe6c8be86fc93d39e256a89e5016e3025afbe5c..315ecb5dc0f33edfef893ead1297c8165d292250 100644
+index 7ebe35096db30854443932add9d1f737f328ec92..be0e1ad34c526f2bd7b80f035c79b07e3b3ef5fb 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -180,6 +180,37 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient

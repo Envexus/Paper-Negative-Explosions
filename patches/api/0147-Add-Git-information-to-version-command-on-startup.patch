@@ -48,7 +48,7 @@ index 0000000000000000000000000000000000000000..909617079db61b675cc7b60b44ef96b3
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 251fa656bf17ecdd031c0e16def5eff3f553e9b4..e108f8a7376e5f90a1e74c0d5ba40ac6c2818523 100644
+index 9f52c092d906622e2eade3bc9d8baac6816f9f3a..869d57b429fbe2694d1444db56c56619abfae920 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -57,6 +57,7 @@ import org.bukkit.util.CachedServerIcon;

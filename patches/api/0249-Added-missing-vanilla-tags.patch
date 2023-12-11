@@ -5,7 +5,7 @@ Subject: [PATCH] Added missing vanilla tags
 
 
 diff --git a/src/main/java/org/bukkit/Tag.java b/src/main/java/org/bukkit/Tag.java
-index 69462a0679c255acee2adb84f590523d3fc3c9aa..4beb607c31705e182ac04c48bdc2a1de13eb9b4c 100644
+index 971bc2e3ae0c265664e2fc3105f4be3027edce26..31bdecf8cbea40129a568c1761f27fa1ae0f535a 100644
 --- a/src/main/java/org/bukkit/Tag.java
 +++ b/src/main/java/org/bukkit/Tag.java
 @@ -767,6 +767,12 @@ public interface Tag<T extends Keyed> extends Keyed {

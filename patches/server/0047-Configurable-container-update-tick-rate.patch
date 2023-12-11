@@ -5,10 +5,10 @@ Subject: [PATCH] Configurable container update tick rate
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 77668e9534f6d68755020cbae09aae5d47d10fa1..5d95cc1f0f66cdad867265c38a06938c00b3a2ed 100644
+index 686b42a9b4475fe3d530a9b950c1cc8f04717a65..d986c09392182335112040d4b6feae6a1a740d84 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -239,6 +239,7 @@ public class ServerPlayer extends Player {
+@@ -247,6 +247,7 @@ public class ServerPlayer extends Player {
      private RemoteChatSession chatSession;
      private int containerCounter;
      public boolean wonGame;
@@ -16,7 +16,7 @@ index 77668e9534f6d68755020cbae09aae5d47d10fa1..5d95cc1f0f66cdad867265c38a06938c
  
      // CraftBukkit start
      public String displayName;
-@@ -675,7 +676,12 @@ public class ServerPlayer extends Player {
+@@ -683,7 +684,12 @@ public class ServerPlayer extends Player {
              --this.invulnerableTime;
          }
  

@@ -6,7 +6,7 @@ Subject: [PATCH] Add command to reload permissions.yml and require confirm to
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 9d1f1b97a16524ba1d523dd9130f113f0cf3e779..cb1c05f5844724f8c937fac2d7f2a878631d1936 100644
+index 3118da2ad367b5bd547769214112ea5299c95866..7b467aedbcf3a6174bfb12ded3b27775a7eaf45c 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -2276,6 +2276,13 @@ public final class Bukkit {
@@ -24,7 +24,7 @@ index 9d1f1b97a16524ba1d523dd9130f113f0cf3e779..cb1c05f5844724f8c937fac2d7f2a878
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 38e3bc502e66229a24833ab1eebba6816155fa19..09c8e8376da0eb0590f09d1ac43595c3825daf06 100644
+index d94483d1481f233897faf378e6b34b6b97f02caf..c5591e82e14e299facfc767a20f2eed77354caac 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -2012,4 +2012,6 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi

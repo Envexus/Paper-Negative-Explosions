@@ -5,17 +5,17 @@ Subject: [PATCH] Disable ice and snow
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 03e05ddb51f9695079fccca9f7119f7adedd75ba..35c401b41750748738c8f8aa2b8988377f4e679f 100644
+index 6e70f759d7f38b16127c12e4a07f2d88fa4cfcaf..91683741c38cb9b9224c40a7637580bb4d15b075 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -855,11 +855,13 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -872,11 +872,13 @@ public class ServerLevel extends Level implements WorldGenLevel {
  
          gameprofilerfiller.popPush("iceandsnow");
  
 +        if (!this.paperConfig().environment.disableIceAndSnow) { // Paper
          for (int l = 0; l < randomTickSpeed; ++l) {
              if (this.random.nextInt(48) == 0) {
-                 this.tickIceAndSnow(flag, this.getBlockRandomPos(j, 0, k, 15));
+                 this.tickPrecipitation(this.getBlockRandomPos(j, 0, k, 15));
              }
          }
 +        } // Paper

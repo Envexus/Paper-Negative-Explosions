@@ -36,10 +36,10 @@ index 0000000000000000000000000000000000000000..e6a40c1fcea761bd66743b50e3da3d14
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/enchantments/Enchantment.java b/src/main/java/org/bukkit/enchantments/Enchantment.java
-index 1b6f42ff632b1f3f5034c825e99b72f389a890b4..8183f26545998e076ad93b4e28f3a3ff693d1032 100644
+index 4a88198be6634b47fc51e55acc5f6415e4aff1ab..d50d4c3121a966adcc47173ddb4575f7ad504148 100644
 --- a/src/main/java/org/bukkit/enchantments/Enchantment.java
 +++ b/src/main/java/org/bukkit/enchantments/Enchantment.java
-@@ -273,11 +273,7 @@ public abstract class Enchantment implements Keyed, net.kyori.adventure.translat
+@@ -269,11 +269,7 @@ public abstract class Enchantment implements Keyed, net.kyori.adventure.translat
       * Cursed enchantments are found the same way treasure enchantments are
       *
       * @return true if the enchantment is cursed
@@ -51,7 +51,7 @@ index 1b6f42ff632b1f3f5034c825e99b72f389a890b4..8183f26545998e076ad93b4e28f3a3ff
      public abstract boolean isCursed();
  
      /**
-@@ -311,6 +307,70 @@ public abstract class Enchantment implements Keyed, net.kyori.adventure.translat
+@@ -307,6 +303,70 @@ public abstract class Enchantment implements Keyed, net.kyori.adventure.translat
       * @return the name of the enchantment with {@code level} applied
       */
      public abstract net.kyori.adventure.text.@NotNull Component displayName(int level);
@@ -121,12 +121,12 @@ index 1b6f42ff632b1f3f5034c825e99b72f389a890b4..8183f26545998e076ad93b4e28f3a3ff
 +    public abstract java.util.Set<org.bukkit.inventory.EquipmentSlot> getActiveSlots();
      // Paper end
  
-     @Override
+     /**
 diff --git a/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java b/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
-index a39f9c078f42451bd122f3e3729d10ca299bee5f..4a838d6eab5a17d7204dba96a882b6c5a22636fc 100644
+index ac0371285370594d4de1554871b19bbcd2311730..da5d153a3e55a38b767359564001ad8663f9730b 100644
 --- a/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
 +++ b/src/main/java/org/bukkit/enchantments/EnchantmentWrapper.java
-@@ -74,5 +74,42 @@ public class EnchantmentWrapper extends Enchantment {
+@@ -31,5 +31,42 @@ public abstract class EnchantmentWrapper extends Enchantment {
      public @NotNull String translationKey() {
          return getEnchantment().translationKey();
      }

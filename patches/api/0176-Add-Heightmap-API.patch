@@ -51,7 +51,7 @@ index 0000000000000000000000000000000000000000..1c832d69bb3717dcfccf21e45f6f060a
 +    SOLID_OR_LIQUID_NO_LEAVES;
 +}
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index dc7e69380e421f64d65b6dcb80909fc770d157fa..5edee59f24ef5f8adf2aa1f2f3c0289cf4bc0ec3 100644
+index cf42f6e57e96aa9cb4465e34a6e3f8709de4ca09..9bbd928f7d513ca317cd27beffa61e5111f5ffb0 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -649,6 +649,46 @@ public class Location implements Cloneable, ConfigurationSerializable, io.paperm
@@ -102,7 +102,7 @@ index dc7e69380e421f64d65b6dcb80909fc770d157fa..5edee59f24ef5f8adf2aa1f2f3c0289c
      /**
       * Creates explosion at this location with given power
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index fe5cc7b038516dd61d2d1af97073a60b76874db5..518158d70a8e7ba9a6aa54c22913d8a881adff1f 100644
+index 8a200ffe1851b24110c92bb3a9f7ffc39b8c63f2..dd498e3ba46bd001028f7f9f94e18de42e875ff6 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -151,6 +151,87 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient

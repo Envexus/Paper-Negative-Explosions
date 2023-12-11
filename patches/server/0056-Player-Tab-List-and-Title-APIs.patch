@@ -5,12 +5,12 @@ Subject: [PATCH] Player Tab List and Title APIs
 
 
 diff --git a/src/main/java/net/minecraft/network/FriendlyByteBuf.java b/src/main/java/net/minecraft/network/FriendlyByteBuf.java
-index 7720470396d3ade926c4c75c5fab5a3f435b0033..9c211b0db837b16d50aee63d0caf45e1a12bcc83 100644
+index bc7d0cc8d66f07b45cffd9952829cc9bed9ce260..00beadec2ad995d724758d051457a3d780d9d813 100644
 --- a/src/main/java/net/minecraft/network/FriendlyByteBuf.java
 +++ b/src/main/java/net/minecraft/network/FriendlyByteBuf.java
 @@ -532,6 +532,11 @@ public class FriendlyByteBuf extends ByteBuf {
-     public FriendlyByteBuf writeComponent(final net.kyori.adventure.text.Component component) {
-         return this.writeUtf(io.papermc.paper.adventure.PaperAdventure.asJsonString(component, this.adventure$locale), 262144);
+         // TODO this.adventure$locale
+         return this.writeWithCodec(NbtOps.INSTANCE, ComponentSerialization.CODEC, io.papermc.paper.adventure.PaperAdventure.asVanilla(component));
      }
 +
 +    @Deprecated
@@ -21,7 +21,7 @@ index 7720470396d3ade926c4c75c5fab5a3f435b0033..9c211b0db837b16d50aee63d0caf45e1
  
      public FriendlyByteBuf writeComponent(Component text) {
 diff --git a/src/main/java/net/minecraft/network/protocol/game/ClientboundSetSubtitleTextPacket.java b/src/main/java/net/minecraft/network/protocol/game/ClientboundSetSubtitleTextPacket.java
-index c44a276d201fdfa5144d45d319d7761583c60639..f68a1a6dc6add9496e25cb52c318e086e356e2bb 100644
+index e77bd5bb66279f579fad4fdcc8b0606410922e9e..4c05fee93eb20044a4198c43d5ae1eebebaabaf7 100644
 --- a/src/main/java/net/minecraft/network/protocol/game/ClientboundSetSubtitleTextPacket.java
 +++ b/src/main/java/net/minecraft/network/protocol/game/ClientboundSetSubtitleTextPacket.java
 @@ -7,6 +7,7 @@ import net.minecraft.network.protocol.Packet;
@@ -42,7 +42,7 @@ index c44a276d201fdfa5144d45d319d7761583c60639..f68a1a6dc6add9496e25cb52c318e086
          // Paper end
          buf.writeComponent(this.text);
 diff --git a/src/main/java/net/minecraft/network/protocol/game/ClientboundSetTitleTextPacket.java b/src/main/java/net/minecraft/network/protocol/game/ClientboundSetTitleTextPacket.java
-index bd808eb312ade7122973a47f4b96505829511da5..bf0f9cab7c66c089f35b851e799ba4a43420b437 100644
+index 7bb08db97c324d13836303cc8a4623c71d6c8a2c..5e9045f7722481e1f83a3d36d7b3d86e9f45d5b1 100644
 --- a/src/main/java/net/minecraft/network/protocol/game/ClientboundSetTitleTextPacket.java
 +++ b/src/main/java/net/minecraft/network/protocol/game/ClientboundSetTitleTextPacket.java
 @@ -7,6 +7,7 @@ import net.minecraft.network.protocol.Packet;
@@ -63,7 +63,7 @@ index bd808eb312ade7122973a47f4b96505829511da5..bf0f9cab7c66c089f35b851e799ba4a4
          // Paper end
          buf.writeComponent(this.text);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 422ed20cf1d77c0b7fa0a674a5bba95cb7cbc2df..e5b4aa1edb3f48b7356dbf25d7aba4ab6053ba03 100644
+index 445e1349256a788a59831893ba7238ae95ae6bef..136dd30ae472a58845a2d8f399d2040faed09345 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -1,5 +1,6 @@
@@ -73,7 +73,7 @@ index 422ed20cf1d77c0b7fa0a674a5bba95cb7cbc2df..e5b4aa1edb3f48b7356dbf25d7aba4ab
  import com.google.common.base.Preconditions;
  import com.google.common.collect.ImmutableSet;
  import com.google.common.io.BaseEncoding;
-@@ -336,6 +337,100 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -343,6 +344,100 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          }
      }
  

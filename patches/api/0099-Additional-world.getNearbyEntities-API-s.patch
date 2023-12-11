@@ -6,7 +6,7 @@ Subject: [PATCH] Additional world.getNearbyEntities API's
 Provides more methods to get nearby entities, and filter by types and predicates
 
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 609e4908ed21f69b9e813500e702bbe784bff00c..a5be4e073d3406e876e54824aca5449f3262ee75 100644
+index faedd3857023513340b6e9fc67b78c79e3989cbe..58a15d8fd57d55848b37bfc8fffa101692efce87 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -1,6 +1,9 @@

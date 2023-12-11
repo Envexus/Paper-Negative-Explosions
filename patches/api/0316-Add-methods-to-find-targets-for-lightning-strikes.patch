@@ -5,7 +5,7 @@ Subject: [PATCH] Add methods to find targets for lightning strikes
 
 
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index e097ac0d62fe9f97762cef4d3a4b740613b8dc34..ec46baeeaed183e3e2565f98d6a3fcafd972e0bc 100644
+index 8735a0a359450a6cbea44c1b01c85a4135ba1f86..48b3df2c12b3f6640e6c54c89763929487f0506d 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -735,6 +735,37 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient

@@ -6,7 +6,7 @@ Subject: [PATCH] Expose MinecraftServer#isRunning
 This allows for plugins to detect if the server is actually turning off in onDisable rather than just plugins reloading.
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 06540f4122165c42e1726c9177aba19be1677edf..cadc844025ac3f58f57932f551a21b90b5698504 100644
+index 1a66d6314765840f529900a850265ed20173fd9b..4e8383432a3a8a07dbc31f77986b0f4790779f7d 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -2462,6 +2462,15 @@ public final class Bukkit {
@@ -26,7 +26,7 @@ index 06540f4122165c42e1726c9177aba19be1677edf..cadc844025ac3f58f57932f551a21b90
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index b862ce8dfb979f629436204ca326a30b5ace4574..655dbcc38e35d3b3fa11cbf863a6ba63cc56b47d 100644
+index 88bb506880fa019881e95a2cc07915841c2028e7..37caeff1416cf0e3c63260ba7ad82a92e95a5399 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -2147,5 +2147,12 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi

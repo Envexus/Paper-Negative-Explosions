@@ -5,10 +5,10 @@ Subject: [PATCH] Add more line of sight methods
 
 
 diff --git a/src/main/java/org/bukkit/RegionAccessor.java b/src/main/java/org/bukkit/RegionAccessor.java
-index 60ed2b36e18032270c0689cb2405a63a8a962fad..3a0e0af739227d99d854b0d5c9bf342fe9363de4 100644
+index d8b1fa79dc24138dc71e32c14bda71c1d570ed88..b68367f123f029c3ff47eab6bfabd7a894a99da4 100644
 --- a/src/main/java/org/bukkit/RegionAccessor.java
 +++ b/src/main/java/org/bukkit/RegionAccessor.java
-@@ -432,5 +432,13 @@ public interface RegionAccessor extends Keyed { // Paper
+@@ -461,5 +461,13 @@ public interface RegionAccessor extends Keyed { // Paper
      @NotNull
      @Override
      NamespacedKey getKey();

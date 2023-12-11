@@ -5,10 +5,10 @@ Subject: [PATCH] Entity powdered snow API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 765777b10f5984b0fbdf22ef884e79745d06b4ff..edfce041e0cdfe9d33c385dfa1875017d43def80 100644
+index 6356370eed537cec782f036dc73fe5bfbe4c1fb7..6456f7bfc8aa8cb5c9aaf0c06f9130242003ee3e 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
-@@ -877,5 +877,12 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
+@@ -921,5 +921,12 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
       * @return Whether the entity was successfully spawned.
       */
      public boolean spawnAt(@NotNull Location location, @NotNull org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason reason);
