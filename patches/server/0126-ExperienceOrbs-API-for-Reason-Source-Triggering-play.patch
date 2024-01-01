@@ -133,7 +133,7 @@ index 59bad6c92cc421dd05c7315e2ab694a669433ab4..627fcf000f40e1bda025da874c447a99
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 043c42d303970920f40bd65a90c147192ed6900b..0b6dce5015144cadee3dc856b7e0d152aa66aca3 100644
+index 1cf4bcb7dcba93c93ad27f10a34b23f616ec9b3f..77a4122cf5a11b29b14a7fc4ac6420ccea49af1b 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -1786,7 +1786,8 @@ public abstract class LivingEntity extends Entity implements Attackable {
@@ -205,7 +205,7 @@ index 83dbf663cd725adcbcfee4ac633f369240375381..0dab0da65788720e56a568918de458ab
  
          }
 diff --git a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-index 773e76d940bf0ec67681d2896bcf7a8428aa94bd..2d8a8a9c8acfcac13e5a82cda9d7be59138b6407 100644
+index c12c387cc2bc87346414dccaa7b2d9347087388d..2eeffb6c31ccdec14001b0a3a82d0f01117b96f3 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 @@ -673,7 +673,7 @@ public class EnderDragon extends Mob implements Enemy {
@@ -217,7 +217,7 @@ index 773e76d940bf0ec67681d2896bcf7a8428aa94bd..2d8a8a9c8acfcac13e5a82cda9d7be59
              }
  
              if (this.dragonDeathTime == 1 && !this.isSilent()) {
-@@ -701,7 +701,7 @@ public class EnderDragon extends Mob implements Enemy {
+@@ -702,7 +702,7 @@ public class EnderDragon extends Mob implements Enemy {
          this.move(MoverType.SELF, new Vec3(0.0D, 0.10000000149011612D, 0.0D));
          if (this.dragonDeathTime == 200 && this.level() instanceof ServerLevel) {
              if (true) { // CraftBukkit - SPIGOT-2420: Already checked for the game rule when calculating the xp
@@ -324,15 +324,15 @@ index e72ed2ed8664cbc408cbe1e38f1f0acacc3841dd..2f628f36c32752d1bac910e180b90639
  
      @Override
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntityTypes.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntityTypes.java
-index f07cff6e72094c5f7c6248b4f738d3c26ea35160..4e7c37c384116ddb9525994428e1bfac35b4a85e 100644
+index c5547988e8e4ec5f1d090d264e14556f490d4e31..c3a55347b630c57aa36f9c761e1937dc95027bb7 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntityTypes.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntityTypes.java
 @@ -363,7 +363,7 @@ public final class CraftEntityTypes {
              return item;
          }));
          register(new EntityTypeData<>(EntityType.EXPERIENCE_ORB, ExperienceOrb.class, CraftExperienceOrb::new,
--                spawnData -> new net.minecraft.world.entity.ExperienceOrb(spawnData.minecraftWorld(), spawnData.x(), spawnData.z(), spawnData.z(), 0)
-+                spawnData -> new net.minecraft.world.entity.ExperienceOrb(spawnData.minecraftWorld(), spawnData.x(), spawnData.z(), spawnData.z(), 0, org.bukkit.entity.ExperienceOrb.SpawnReason.CUSTOM, null, null) // Paper
+-                spawnData -> new net.minecraft.world.entity.ExperienceOrb(spawnData.minecraftWorld(), spawnData.x(), spawnData.y(), spawnData.z(), 0)
++                spawnData -> new net.minecraft.world.entity.ExperienceOrb(spawnData.minecraftWorld(), spawnData.x(), spawnData.y(), spawnData.z(), 0, org.bukkit.entity.ExperienceOrb.SpawnReason.CUSTOM, null, null) // Paper
          ));
          register(new EntityTypeData<>(EntityType.AREA_EFFECT_CLOUD, AreaEffectCloud.class, CraftAreaEffectCloud::new, spawnData -> new net.minecraft.world.entity.AreaEffectCloud(spawnData.minecraftWorld(), spawnData.x(), spawnData.y(), spawnData.z())));
          register(new EntityTypeData<>(EntityType.EGG, Egg.class, CraftEgg::new, spawnData -> new ThrownEgg(spawnData.minecraftWorld(), spawnData.x(), spawnData.y(), spawnData.z())));

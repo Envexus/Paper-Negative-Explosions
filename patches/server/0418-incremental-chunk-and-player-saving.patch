@@ -76,10 +76,10 @@ index 974b4970be214ca36a801d39932abcc751e540a5..63fad53a9184d7ab97f143b7d85ae9ef
      public void close() throws IOException {
          // CraftBukkit start
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index c877aca6093435be9d349c07ea1b01d06bcbd416..17802108f41c98b77c89922451ee56b5ba2dcde2 100644
+index f734f6476c89bbed511d0b8209bd1cbdbd791998..9924f0ba2ac867748e49d738ac5bcef292cfc649 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -1302,6 +1302,37 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -1307,6 +1307,37 @@ public class ServerLevel extends Level implements WorldGenLevel {
          return !this.server.isUnderSpawnProtection(this, pos, player) && this.getWorldBorder().isWithinBounds(pos);
      }
  
@@ -118,7 +118,7 @@ index c877aca6093435be9d349c07ea1b01d06bcbd416..17802108f41c98b77c89922451ee56b5
          // Paper start - rewrite chunk system - add close param
          this.save(progressListener, flush, savingDisabled, false);
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 898403dad5e9bac4b565e1c75871245fe5cd7908..25c5f23b859961c792b2ec08404171eea1aedba7 100644
+index d43bf7ff39e9424f5cdcc93d29779570c8735869..fddbd703071ec93d6e3a9ecc1ff17b3e74eb8986 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -190,6 +190,7 @@ import org.bukkit.inventory.MainHand;
@@ -130,7 +130,7 @@ index 898403dad5e9bac4b565e1c75871245fe5cd7908..25c5f23b859961c792b2ec08404171ee
      private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_Y = 10;
      private static final int FLY_STAT_RECORDING_SPEED = 25;
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 6d61e70d1d5ad5bce6432f91d3b23c1734ad629c..ed686f82dfd264a6b5d0a89163786574525f043e 100644
+index cb173f30bf5abd7c709d2186dd489e50c178b3cc..62888ec5766806016545e34758da20884626697a 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -552,6 +552,7 @@ public abstract class PlayerList {
@@ -141,7 +141,7 @@ index 6d61e70d1d5ad5bce6432f91d3b23c1734ad629c..ed686f82dfd264a6b5d0a89163786574
          this.playerIo.save(player);
          ServerStatsCounter serverstatisticmanager = (ServerStatsCounter) player.getStats(); // CraftBukkit
  
-@@ -1149,10 +1150,22 @@ public abstract class PlayerList {
+@@ -1155,10 +1156,22 @@ public abstract class PlayerList {
      }
  
      public void saveAll() {

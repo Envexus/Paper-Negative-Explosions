@@ -257,7 +257,7 @@ index edbb933d1f6f7fc6432f7a8b074c5dc20f47adfb..91fb62807b3c5600c83d4dc8d3fadf36
      public Llama(EntityType<? extends Llama> type, Level world) {
          super(type, world);
 diff --git a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-index c23f05f0d951e0036fe2cf524989747fe236730b..cd59500565a305757872aaf41b03b49ffc005af5 100644
+index 29b603f5d361fdfb4dd0d20b7e77a29a920f6961..32b69b09ba2ee63e393aa6b4b6a142aaca6819a1 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 @@ -84,6 +84,11 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
@@ -272,7 +272,7 @@ index c23f05f0d951e0036fe2cf524989747fe236730b..cd59500565a305757872aaf41b03b49f
  
      public WitherBoss(EntityType<? extends WitherBoss> type, Level world) {
          super(type, world);
-@@ -595,7 +600,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -596,7 +601,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
  
      @Override
      public boolean canChangeDimensions() {
@@ -707,10 +707,10 @@ index 2cec61a1bb050c1ef81c5fc3d0afafe9ff29d459..97fa4e1e70203194bd939618b2fad926
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index 7857ce7b0404f1f41988d02eead5394946607854..524633826140227b7d0efa292cb2378922d9a6e6 100644
+index 1d94e8276b49de47cdd7570774c7bb13f757d966..db846e623bdf8231991d30c88dcf858d66836ca4 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-@@ -888,6 +888,22 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
+@@ -887,6 +887,22 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
          this.getHandle().persistentInvisibility = invisible;
          this.getHandle().setSharedFlag(5, invisible);
      }

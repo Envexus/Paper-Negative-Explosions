@@ -5,10 +5,10 @@ Subject: [PATCH] Adds PlayerArmSwingEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index a9a6bdccd55559614d933bf02b7d12432feb52dc..2b251bbfdb208e9482acf87c233dac90f8908018 100644
+index 3ed491afc47273cb8d648ff527c81d968a1a3833..8e229a43a5b6042597532419cf6e63439a94d4f9 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -2326,7 +2326,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -2333,7 +2333,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
          } // Paper end
  
          // Arm swing animation
