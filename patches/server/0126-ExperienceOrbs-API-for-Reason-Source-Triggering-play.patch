@@ -21,7 +21,7 @@ index 4f3c82f1b5ae24d5f70318fa96fae2a58ce7fd9f..45236a077d798d6a257a2e982b589011
  
                  return true;
 diff --git a/src/main/java/net/minecraft/world/entity/ExperienceOrb.java b/src/main/java/net/minecraft/world/entity/ExperienceOrb.java
-index 59bad6c92cc421dd05c7315e2ab694a669433ab4..627fcf000f40e1bda025da874c447a99c727b98b 100644
+index 59bad6c92cc421dd05c7315e2ab694a669433ab4..b49e48fa6dd37b5eddb45877be90018ec9d23b0e 100644
 --- a/src/main/java/net/minecraft/world/entity/ExperienceOrb.java
 +++ b/src/main/java/net/minecraft/world/entity/ExperienceOrb.java
 @@ -39,13 +39,67 @@ public class ExperienceOrb extends Entity {
@@ -36,7 +36,7 @@ index 59bad6c92cc421dd05c7315e2ab694a669433ab4..627fcf000f40e1bda025da874c447a99
 +    public org.bukkit.entity.ExperienceOrb.SpawnReason spawnReason = org.bukkit.entity.ExperienceOrb.SpawnReason.UNKNOWN;
 +
 +    private void loadPaperNBT(CompoundTag nbttagcompound) {
-+        if (!nbttagcompound.contains("Paper.ExpData", 10)) { // 10 = compound
++        if (!nbttagcompound.contains("Paper.ExpData", net.minecraft.nbt.Tag.TAG_COMPOUND)) {
 +            return;
 +        }
 +        CompoundTag comp = nbttagcompound.getCompound("Paper.ExpData");
@@ -205,7 +205,7 @@ index 83dbf663cd725adcbcfee4ac633f369240375381..0dab0da65788720e56a568918de458ab
  
          }
 diff --git a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-index c12c387cc2bc87346414dccaa7b2d9347087388d..2eeffb6c31ccdec14001b0a3a82d0f01117b96f3 100644
+index 2471800014d1661c2f422e5a24f0f3b00fa838f2..f5ce6423b8146cc741023e15004fe9814a035da8 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 @@ -673,7 +673,7 @@ public class EnderDragon extends Mob implements Enemy {
@@ -292,21 +292,21 @@ index 8d09c134058e55a23df4e23d965a7a783aed701e..45242f0ed5a0f98953df5f27fb76874d
  
                      world.levelEvent(1042, blockposition, 0);
 diff --git a/src/main/java/net/minecraft/world/level/block/Block.java b/src/main/java/net/minecraft/world/level/block/Block.java
-index 756a8ae14ffc46d6ebe0a858a03fb2e89b8e118a..bdf5443d5974d316b9b216291fadae4346a3123f 100644
+index 756a8ae14ffc46d6ebe0a858a03fb2e89b8e118a..89a62fbeeb78c864938a1cea84178478c6dc1b34 100644
 --- a/src/main/java/net/minecraft/world/level/block/Block.java
 +++ b/src/main/java/net/minecraft/world/level/block/Block.java
 @@ -369,8 +369,13 @@ public class Block extends BlockBehaviour implements ItemLike {
      }
  
      public void popExperience(ServerLevel world, BlockPos pos, int size) {
-+        // Paper start - add player parameter
++        // Paper start - add entity parameter
 +        popExperience(world, pos, size, null);
 +    }
-+    public void popExperience(ServerLevel world, BlockPos pos, int size, net.minecraft.server.level.ServerPlayer player) {
-+        // Paper end - add player parameter
++    public void popExperience(ServerLevel world, BlockPos pos, int size, net.minecraft.world.entity.Entity entity) {
++        // Paper end - add entity parameter
          if (world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
 -            ExperienceOrb.award(world, Vec3.atCenterOf(pos), size);
-+            ExperienceOrb.award(world, Vec3.atCenterOf(pos), size, org.bukkit.entity.ExperienceOrb.SpawnReason.BLOCK_BREAK, player); // Paper
++            ExperienceOrb.award(world, Vec3.atCenterOf(pos), size, org.bukkit.entity.ExperienceOrb.SpawnReason.BLOCK_BREAK, entity); // Paper
          }
  
      }
