@@ -577,15 +577,15 @@ index 3a00e24d78acb99d226289ccb9ba419dfc607a45..209594863c2aa965055412adb7db009c
       * Calculates distance between 2 entities
       * @param e1
 diff --git a/src/main/java/net/minecraft/server/Main.java b/src/main/java/net/minecraft/server/Main.java
-index 360ecf561cde34b07929519a67485e0315e4676c..22f53d722f8e567554d2f7ed6c683e76cd74a1ef 100644
+index 9d32d03ad59a6e2dfef2c157e621f9ef43098534..b60003f2542e469edf9e856873a1b325686ac31c 100644
 --- a/src/main/java/net/minecraft/server/Main.java
 +++ b/src/main/java/net/minecraft/server/Main.java
 @@ -176,7 +176,7 @@ public class Main {
              }
  
              File file = (File) optionset.valueOf("universe"); // CraftBukkit
--            Services services = Services.create(new YggdrasilAuthenticationService(Proxy.NO_PROXY), file, optionset); // Paper
-+            Services services = Services.create(new com.destroystokyo.paper.profile.PaperAuthenticationService(Proxy.NO_PROXY), file, optionset); // Paper
+-            Services services = Services.create(new YggdrasilAuthenticationService(Proxy.NO_PROXY), file, optionset); // Paper - pass OptionSet to load paper config files
++            Services services = Services.create(new com.destroystokyo.paper.profile.PaperAuthenticationService(Proxy.NO_PROXY), file, optionset); // Paper - pass OptionSet to load paper config files; override authentication service
              // CraftBukkit start
              String s = (String) Optional.ofNullable((String) optionset.valueOf("world")).orElse(dedicatedserversettings.getProperties().levelName);
              LevelStorageSource convertable = LevelStorageSource.createDefault(file.toPath());
@@ -612,7 +612,7 @@ index 9c500642eb2b59bf9aabd6b5d563e5fb15603056..731a7c0363c8c91d25b35f7cbbb48087
          String s1 = name.toLowerCase(Locale.ROOT);
          GameProfileCache.GameProfileInfo usercache_usercacheentry = (GameProfileCache.GameProfileInfo) this.profilesByName.get(s1);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 22656e27aeb2b6de8bb2be2d7db402a4a81fec87..0cb507dde784443fea2a9ca2acb7a77e225cfbc5 100644
+index dc43f7da2851727ea3be618386a6555c515bbddd..07d88fbfcfde48fbebe8081633beca48df658bd0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -260,6 +260,9 @@ import org.yaml.snakeyaml.error.MarkedYAMLException;
@@ -633,7 +633,7 @@ index 22656e27aeb2b6de8bb2be2d7db402a4a81fec87..0cb507dde784443fea2a9ca2acb7a77e
          CraftItemFactory.instance();
      }
  
-@@ -2775,5 +2779,42 @@ public final class CraftServer implements Server {
+@@ -2774,5 +2778,42 @@ public final class CraftServer implements Server {
      public boolean suggestPlayerNamesWhenNullTabCompletions() {
          return io.papermc.paper.configuration.GlobalConfiguration.get().commands.suggestPlayerNamesWhenNullTabCompletions;
      }

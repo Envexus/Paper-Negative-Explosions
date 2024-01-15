@@ -6,18 +6,18 @@ Subject: [PATCH] Deobfuscate stacktraces in log messages, crash reports, and
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 6acb1f37f4c5cb1addd835626041cd3c28eb842f..7398b673f416fa2c05231f90a59600517a21c908 100644
+index eaaf9a9779f57ee048245899750bf7a1599b716f..450f7c03bdcc109938ba9b66328bdbb2c96c03c9 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
-@@ -36,6 +36,7 @@ dependencies {
-     implementation("org.ow2.asm:asm-commons:9.5") // Paper - ASM event executor generation
+@@ -35,6 +35,7 @@ dependencies {
+     implementation("org.ow2.asm:asm-commons:9.5")
      implementation("org.spongepowered:configurate-yaml:4.2.0-SNAPSHOT") // Paper - config files
      implementation("commons-lang:commons-lang:2.6")
 +    implementation("net.fabricmc:mapping-io:0.5.0") // Paper - needed to read mappings for stacktrace deobfuscation
      runtimeOnly("org.xerial:sqlite-jdbc:3.42.0.1")
      runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
      runtimeOnly("com.lmax:disruptor:3.4.4") // Paper
-@@ -125,6 +126,18 @@ tasks.check {
+@@ -124,6 +125,18 @@ tasks.check {
  }
  // Paper end
  
@@ -525,7 +525,7 @@ index 93d3f29b08c79479c27d3f39e6c799c705e69902..38650109c1d2683a27da5788dc6013d8
  
      protected void channelRead0(ChannelHandlerContext channelhandlercontext, Packet<?> packet) {
 diff --git a/src/main/java/net/minecraft/network/PacketEncoder.java b/src/main/java/net/minecraft/network/PacketEncoder.java
-index 45b4f1c295eda2fcc5067a4b21de247218ef117f..d364bd57b1675c8b21d781c2bc16c3e65800455c 100644
+index 2907536f8f9b4b9dccb96f8b4f19d75fa3c5b864..b5b228e67284baad3639b283595427a819bb1a44 100644
 --- a/src/main/java/net/minecraft/network/PacketEncoder.java
 +++ b/src/main/java/net/minecraft/network/PacketEncoder.java
 @@ -47,7 +47,14 @@ public class PacketEncoder extends MessageToByteEncoder<Packet<?>> {
@@ -545,22 +545,22 @@ index 45b4f1c295eda2fcc5067a4b21de247218ef117f..d364bd57b1675c8b21d781c2bc16c3e6
                          throw new SkipPacketException(var13);
                      }
 diff --git a/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java b/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
-index fe47a38137f7b7fa94c507e790eec4fb7303595f..7f5ecea0ee78a534d7c56fa9e3ad2117b5192c0a 100644
+index 9ddcca2c17c15c5c7d88046aeae8b5588ad4612d..c7696765ff6b1e27c108d2668c32abbbab35896c 100644
 --- a/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -195,6 +195,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+@@ -194,6 +194,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+         org.spigotmc.SpigotConfig.init((java.io.File) this.options.valueOf("spigot-settings"));
          org.spigotmc.SpigotConfig.registerCommands();
          // Spigot end
-         // Paper start
 +        io.papermc.paper.util.ObfHelper.INSTANCE.getClass(); // Paper - load mappings for stacktrace deobf and etc.
-         paperConfigurations.initializeGlobalConfiguration(this.registryAccess());
-         paperConfigurations.initializeWorldDefaultsConfiguration(this.registryAccess());
-         org.spigotmc.WatchdogThread.doStart(org.spigotmc.SpigotConfig.timeoutTime, org.spigotmc.SpigotConfig.restartOnCrash);
+         // Paper start - initialize global and world-defaults configuration
+         this.paperConfigurations.initializeGlobalConfiguration(this.registryAccess());
+         this.paperConfigurations.initializeWorldDefaultsConfiguration(this.registryAccess());
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 1e54396f42737f18d6b3cef7d0c208ec03088b73..f734f6476c89bbed511d0b8209bd1cbdbd791998 100644
+index 1c0d2aad70b3817913e93354ccc055b82ae321bc..51379dc93af2eaa3294179debe067d62627b60e1 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -223,7 +223,9 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -222,7 +222,9 @@ public class ServerLevel extends Level implements WorldGenLevel {
      public final UUID uuid;
      public boolean hasPhysicsEvent = true; // Paper
      public static Throwable getAddToWorldStackTrace(Entity entity) {
@@ -571,7 +571,7 @@ index 1e54396f42737f18d6b3cef7d0c208ec03088b73..f734f6476c89bbed511d0b8209bd1cbd
      }
  
      @Override public LevelChunk getChunkIfLoaded(int x, int z) { // Paper - this was added in world too but keeping here for NMS ABI
-@@ -1493,7 +1495,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -1492,7 +1494,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
          if (entity.isRemoved()) {
              // Paper start
              if (DEBUG_ENTITIES) {
@@ -633,10 +633,10 @@ index 6a64c58fff9bbed542bf29a029531996f2a50d00..c24898f8e81e8ab9a1f90bf4439ea6c6
                              }
                         }
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index 12af77215bfd6df3b6802a567ac3c013a4cdf06a..fa170cc1ce7011d201295b89718292d696c7fc24 100644
+index 45ecda3b67025881a145d40a5291c34e5a1f9590..27e8ee4507460b1cc72de692b41562b9f4f13929 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -600,7 +600,7 @@ public class LevelChunk extends ChunkAccess {
+@@ -599,7 +599,7 @@ public class LevelChunk extends ChunkAccess {
                      + " (" + getBlockState(blockposition) + ") where there was no entity tile!\n" +
                      "Chunk coordinates: " + (this.chunkPos.x * 16) + "," + (this.chunkPos.z * 16) +
                      "\nWorld: " + level.getLevel().dimension().location());

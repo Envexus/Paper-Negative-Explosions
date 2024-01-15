@@ -1104,15 +1104,15 @@ index be89e5b8c1ea7f85aef267a15986affa5fa1fd4b..43472855136f26b282d94fd241853d86
  
      public ClientboundLevelChunkWithLightPacket(FriendlyByteBuf buf) {
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index e147ec8eeb69668da8eb52550c39623f700c2052..2a6ac42a2b7388dcbd405fb00b05067b8b5a78cb 100644
+index 2d1aa3acd41615b1b2c9cf5751152a56f1f18ec5..6d6ad6a33f3f8e4b8bc39fea00506daf7b31275c 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -573,7 +573,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -572,7 +572,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
          // Holder holder = worlddimension.type(); // CraftBukkit - decompile error
  
          // Objects.requireNonNull(minecraftserver); // CraftBukkit - decompile error
--        super(iworlddataserver, resourcekey, minecraftserver.registryAccess(), worlddimension.type(), minecraftserver::getProfiler, false, flag, i, minecraftserver.getMaxChainedNeighborUpdates(), gen, biomeProvider, env, spigotConfig -> minecraftserver.paperConfigurations.createWorldConfig(io.papermc.paper.configuration.PaperConfigurations.createWorldContextMap(convertable_conversionsession.levelDirectory.path(), iworlddataserver.getLevelName(), resourcekey.location(), spigotConfig, minecraftserver.registryAccess()))); // Paper
-+        super(iworlddataserver, resourcekey, minecraftserver.registryAccess(), worlddimension.type(), minecraftserver::getProfiler, false, flag, i, minecraftserver.getMaxChainedNeighborUpdates(), gen, biomeProvider, env, spigotConfig -> minecraftserver.paperConfigurations.createWorldConfig(io.papermc.paper.configuration.PaperConfigurations.createWorldContextMap(convertable_conversionsession.levelDirectory.path(), iworlddataserver.getLevelName(), resourcekey.location(), spigotConfig, minecraftserver.registryAccess())), executor); // Paper - Async-Anti-Xray - Pass executor
+-        super(iworlddataserver, resourcekey, minecraftserver.registryAccess(), worlddimension.type(), minecraftserver::getProfiler, false, flag, i, minecraftserver.getMaxChainedNeighborUpdates(), gen, biomeProvider, env, spigotConfig -> minecraftserver.paperConfigurations.createWorldConfig(io.papermc.paper.configuration.PaperConfigurations.createWorldContextMap(convertable_conversionsession.levelDirectory.path(), iworlddataserver.getLevelName(), resourcekey.location(), spigotConfig, minecraftserver.registryAccess()))); // Paper - create paper world configs
++        super(iworlddataserver, resourcekey, minecraftserver.registryAccess(), worlddimension.type(), minecraftserver::getProfiler, false, flag, i, minecraftserver.getMaxChainedNeighborUpdates(), gen, biomeProvider, env, spigotConfig -> minecraftserver.paperConfigurations.createWorldConfig(io.papermc.paper.configuration.PaperConfigurations.createWorldContextMap(convertable_conversionsession.levelDirectory.path(), iworlddataserver.getLevelName(), resourcekey.location(), spigotConfig, minecraftserver.registryAccess())), executor); // Paper - create paper world configs; Async-Anti-Xray: Pass executor
          this.pvpMode = minecraftserver.isPvpAllowed();
          this.convertable = convertable_conversionsession;
          this.uuid = WorldUUID.getUUID(convertable_conversionsession.levelDirectory.path().toFile());
@@ -1155,12 +1155,12 @@ index 5de5209e04d631bd6a50e28e8d3abebf148252c1..19b3f4fa7678a038bf25efc2a8b46dda
          DebugPackets.sendPoiPacketsForChunk(world, chunkPos);
      }
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index e4c0e0eb3ee268c82019fbebe11008373e8148a0..5d344f88e5e5ff73ae29833952fc2df80473ced6 100644
+index 9e4ab11521b853d0db55b382413c1f49cbff9e9e..8782c443d6288cb1cadc181e7f2923cbcd3061d2 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
 @@ -178,6 +178,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
      }
-     // Paper end
+     // Paper end - add paper world config
  
 +    public final com.destroystokyo.paper.antixray.ChunkPacketBlockController chunkPacketBlockController; // Paper - Anti-Xray
      public final co.aikar.timings.WorldTimingsHandler timings; // Paper
@@ -1170,10 +1170,10 @@ index e4c0e0eb3ee268c82019fbebe11008373e8148a0..5d344f88e5e5ff73ae29833952fc2df8
  
      public abstract ResourceKey<LevelStem> getTypeKey();
  
--    protected Level(WritableLevelData worlddatamutable, ResourceKey<Level> resourcekey, RegistryAccess iregistrycustom, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean flag, boolean flag1, long i, int j, org.bukkit.generator.ChunkGenerator gen, org.bukkit.generator.BiomeProvider biomeProvider, org.bukkit.World.Environment env, java.util.function.Function<org.spigotmc.SpigotWorldConfig, io.papermc.paper.configuration.WorldConfiguration> paperWorldConfigCreator) { // Paper
-+    protected Level(WritableLevelData worlddatamutable, ResourceKey<Level> resourcekey, RegistryAccess iregistrycustom, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean flag, boolean flag1, long i, int j, org.bukkit.generator.ChunkGenerator gen, org.bukkit.generator.BiomeProvider biomeProvider, org.bukkit.World.Environment env, java.util.function.Function<org.spigotmc.SpigotWorldConfig, io.papermc.paper.configuration.WorldConfiguration> paperWorldConfigCreator, java.util.concurrent.Executor executor) { // Paper - Async-Anti-Xray - Pass executor
+-    protected Level(WritableLevelData worlddatamutable, ResourceKey<Level> resourcekey, RegistryAccess iregistrycustom, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean flag, boolean flag1, long i, int j, org.bukkit.generator.ChunkGenerator gen, org.bukkit.generator.BiomeProvider biomeProvider, org.bukkit.World.Environment env, java.util.function.Function<org.spigotmc.SpigotWorldConfig, io.papermc.paper.configuration.WorldConfiguration> paperWorldConfigCreator) { // Paper - create paper world config
++    protected Level(WritableLevelData worlddatamutable, ResourceKey<Level> resourcekey, RegistryAccess iregistrycustom, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean flag, boolean flag1, long i, int j, org.bukkit.generator.ChunkGenerator gen, org.bukkit.generator.BiomeProvider biomeProvider, org.bukkit.World.Environment env, java.util.function.Function<org.spigotmc.SpigotWorldConfig, io.papermc.paper.configuration.WorldConfiguration> paperWorldConfigCreator, java.util.concurrent.Executor executor) { // Paper - create paper world config; Async-Anti-Xray: Pass executor
          this.spigotConfig = new org.spigotmc.SpigotWorldConfig(((net.minecraft.world.level.storage.PrimaryLevelData) worlddatamutable).getLevelName()); // Spigot
-         this.paperConfig = paperWorldConfigCreator.apply(this.spigotConfig); // Paper
+         this.paperConfig = paperWorldConfigCreator.apply(this.spigotConfig); // Paper - create paper world config
          this.generator = gen;
 @@ -282,6 +283,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          this.keepSpawnInMemory = this.paperConfig().spawn.keepSpawnLoaded; // Paper
@@ -1217,7 +1217,7 @@ index 5e8d2e4245757a0889645ea79ee68afb53f7dde4..f7e5e016a7028a9196e689e950805b0d
          }
  
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index d9d2bf31a0e7ad374aa62197c71626a1abfbaf71..4a5491a79281b7cddf5ad5f060567f174b89d14b 100644
+index 86eff98a4f73fc1eb1f5f977204aa9307aa54013..e599bfb9a7b0b85bea2940f6bf55118305dd0ce8 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -91,7 +91,7 @@ public class LevelChunk extends ChunkAccess {
@@ -1558,10 +1558,10 @@ index 545b14f02ac72dda30891d681eba585d19fd5e1d..6dc7e23e96aaffb912611a9dbd41459c
      private static final byte[] EMPTY_LIGHT = new byte[2048];
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 71ea77e3a487bf7adfb5d430c3df0035abdd4f1c..51d4f3cbcc803f35ea16c1633e41c70a1d366fbf 100644
+index 4b57573660f5d806973edb5a66a0ac183c40c19e..0a9b61b3af57b098d17443d3f26237489fc11f0e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2374,7 +2374,7 @@ public final class CraftServer implements Server {
+@@ -2373,7 +2373,7 @@ public final class CraftServer implements Server {
      public ChunkGenerator.ChunkData createChunkData(World world) {
          Preconditions.checkArgument(world != null, "World cannot be null");
          ServerLevel handle = ((CraftWorld) world).getHandle();
@@ -1571,7 +1571,7 @@ index 71ea77e3a487bf7adfb5d430c3df0035abdd4f1c..51d4f3cbcc803f35ea16c1633e41c70a
  
      @Override
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 44ff199c5cd675cd795e89e0bee0d57f7dce958a..9e755de8e278f5dd20c9a2d8c8057c16ffe0e118 100644
+index bcd782f9b13c71f1a5bce4836463d0b57e5ada72..357b82e110b789b7a12735a844a9c7e720b4f479 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -421,11 +421,16 @@ public class CraftWorld extends CraftRegionAccessor implements World {
@@ -1594,10 +1594,10 @@ index 44ff199c5cd675cd795e89e0bee0d57f7dce958a..9e755de8e278f5dd20c9a2d8c8057c16
          // Paper - rewrite player chunk loader
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/generator/OldCraftChunkData.java b/src/main/java/org/bukkit/craftbukkit/generator/OldCraftChunkData.java
-index a8b23d7eae867be95835bb76f9739a3d1d729973..5fbb9d2c4e419a3f31a8420437978606d75e5b62 100644
+index e7f7a246e9c03e676dadfee59de87b8b2ac55ba3..03eb35d5c67f125c44cf46595c93d124ac7892b8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/generator/OldCraftChunkData.java
 +++ b/src/main/java/org/bukkit/craftbukkit/generator/OldCraftChunkData.java
-@@ -26,8 +26,13 @@ public final class OldCraftChunkData implements ChunkGenerator.ChunkData {
+@@ -27,8 +27,13 @@ public final class OldCraftChunkData implements ChunkGenerator.ChunkData {
      private final Registry<net.minecraft.world.level.biome.Biome> biomes;
      private Set<BlockPos> tiles;
      private final Set<BlockPos> lights = new HashSet<>();
@@ -1612,7 +1612,7 @@ index a8b23d7eae867be95835bb76f9739a3d1d729973..5fbb9d2c4e419a3f31a8420437978606
          this.minHeight = minHeight;
          this.maxHeight = maxHeight;
          this.biomes = biomes;
-@@ -175,7 +180,7 @@ public final class OldCraftChunkData implements ChunkGenerator.ChunkData {
+@@ -176,7 +181,7 @@ public final class OldCraftChunkData implements ChunkGenerator.ChunkData {
          int offset = (y - this.minHeight) >> 4;
          LevelChunkSection section = this.sections[offset];
          if (create && section == null) {
