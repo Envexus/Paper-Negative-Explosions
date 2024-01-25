@@ -310,7 +310,7 @@ index adb20a9abba33c32d553f620fa82b27dff64ab5f..1f6702b0de00b87dbed7f6d93e911655
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/entity/Cat.java b/src/main/java/org/bukkit/entity/Cat.java
-index d1327761a4b95eba97877f1991fc19b298b48eaf..9bc385682472418c787481bbc809f238194d5918 100644
+index d1327761a4b95eba97877f1991fc19b298b48eaf..0534fbc228f64cf3b361ab097d9b88212bdb0f36 100644
 --- a/src/main/java/org/bukkit/entity/Cat.java
 +++ b/src/main/java/org/bukkit/entity/Cat.java
 @@ -68,4 +68,36 @@ public interface Cat extends Tameable, Sittable {
@@ -318,7 +318,7 @@ index d1327761a4b95eba97877f1991fc19b298b48eaf..9bc385682472418c787481bbc809f238
          }
      }
 +
-+    // Paper Start - More cat api
++    // Paper start - More cat api
 +    /**
 +     * Sets if the cat is lying down.
 +     * This is visual and does not affect the behaviour of the cat.
@@ -348,7 +348,7 @@ index d1327761a4b95eba97877f1991fc19b298b48eaf..9bc385682472418c787481bbc809f238
 +     * @return head is up
 +     */
 +    public boolean isHeadUp();
-+    // Paper End - More cat api
++    // Paper end - More cat api
  }
 diff --git a/src/main/java/org/bukkit/entity/Chicken.java b/src/main/java/org/bukkit/entity/Chicken.java
 index cb3ec6ef6c38c2071cb6ad91da094fca2de8d5c6..b4c1a262602d4ca5ffc9fcc21d6aa79af8c040a7 100644
@@ -1115,6 +1115,37 @@ index a52a7af219633d575dcbe8ac4b219834bfd4d4d2..1e839b247182af6873a4d74b236d6412
   */
 -public interface Salmon extends Fish { }
 +public interface Salmon extends io.papermc.paper.entity.SchoolableFish { } // Paper - Schooling Fish API
+diff --git a/src/main/java/org/bukkit/entity/TNTPrimed.java b/src/main/java/org/bukkit/entity/TNTPrimed.java
+index 0813bd913c8fdb2001963ce3e82c07c2af105418..87e717c9ea61b0cbf536bc62fa829ddcfae5ad8c 100644
+--- a/src/main/java/org/bukkit/entity/TNTPrimed.java
++++ b/src/main/java/org/bukkit/entity/TNTPrimed.java
+@@ -64,4 +64,26 @@ public interface TNTPrimed extends Explosive {
+     default org.bukkit.Location getSourceLoc() {
+         return this.getOrigin();
+     }
++
++    // Paper start
++    /**
++     * Sets the visual block data of this
++     * primed tnt.
++     * <br>
++     * The explosion of the tnt stays the
++     * same and is not affected by this change.
++     *
++     * @param data the visual block data
++     */
++    void setBlockData(@org.jetbrains.annotations.NotNull org.bukkit.block.data.BlockData data);
++
++    /**
++     * Gets the visual block data of this
++     * primed tnt.
++     *
++     * @return the visual block data
++     */
++    @org.jetbrains.annotations.NotNull
++    org.bukkit.block.data.BlockData getBlockData();
++    // Paper end
+ }
 diff --git a/src/main/java/org/bukkit/entity/Tadpole.java b/src/main/java/org/bukkit/entity/Tadpole.java
 index d64979ebdd018f0f63b6115809b48374ba454249..8e097ad55d208a6980c320e2a849efdcc504cff1 100644
 --- a/src/main/java/org/bukkit/entity/Tadpole.java
@@ -1396,7 +1427,7 @@ index 87a814f63c3f35be35bfa210c9248ad211c0dd8f..14543c2238b45c526dd9aebea2aa5c22
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/entity/ZombieVillager.java b/src/main/java/org/bukkit/entity/ZombieVillager.java
-index 7cc1d9a966454af70b7c25735fe474fe3eb97eb4..ad2eaee347cd2864aef30d2af48c1be6dc115c22 100644
+index 7cc1d9a966454af70b7c25735fe474fe3eb97eb4..ac6fd8ca95771c185c145f4589ddd5b2a6e8c2da 100644
 --- a/src/main/java/org/bukkit/entity/ZombieVillager.java
 +++ b/src/main/java/org/bukkit/entity/ZombieVillager.java
 @@ -90,4 +90,22 @@ public interface ZombieVillager extends Zombie {
@@ -1420,7 +1451,7 @@ index 7cc1d9a966454af70b7c25735fe474fe3eb97eb4..ad2eaee347cd2864aef30d2af48c1be6
 +     *                             org.bukkit.{@link org.bukkit.Sound#ENTITY_ZOMBIE_VILLAGER_CURE} from playing.
 +     */
 +    void setConversionTime(int time, boolean broadcastEntityEvent);
-+    // Paper stop - missing entity behaviour api - converting without entity event
++    // Paper end - missing entity behaviour api - converting without entity event
  }
 diff --git a/src/main/java/org/bukkit/entity/minecart/HopperMinecart.java b/src/main/java/org/bukkit/entity/minecart/HopperMinecart.java
 index db69687a7ad4b18d17ab1677cae5d8dd4dcd3678..304b05aeaea5febf493fc40d433a23acb384b4f0 100644

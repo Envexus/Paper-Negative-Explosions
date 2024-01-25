@@ -10,10 +10,10 @@ This patch adds a per-tick cache that is used for storing and retrieving
 an entity's exposure during an explosion.
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 21fc0ce46567d7bd7f24759779f8586efe72fc9f..8072eedb5bc699aa5b04fbca39f4db30534cde4b 100644
+index de8b12b5014e653cb96d422c74307c7fbfd1b5b5..cb7dcb4dc310f1857600b340e4101e2829fcf6b6 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1479,6 +1479,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1426,6 +1426,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
  
              this.profiler.pop();
              this.profiler.pop();
@@ -120,7 +120,7 @@ index c5d644876e0c92a444a574ee7571227e19b28482..4e382cfae7a3a1889bc36bad24c6ea38
 +    // Paper end
  }
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index 05b07a2f0b693f10da66eb51d332436caff9f9c6..4e43a957b000f852ea889ead0eb213eedaf57a5a 100644
+index dfe8eea789a6dd5476da0c194236dba3868a2cb7..7ead83d46e7bb3ee3586acf695b08f197f61f04a 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
 @@ -170,6 +170,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {

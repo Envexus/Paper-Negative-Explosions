@@ -6,10 +6,10 @@ Subject: [PATCH] Allow Reloading of Custom Permissions
 https://github.com/PaperMC/Paper/issues/49
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index c893e7ed3d5db0de6a248f924a4f6f747fc71f00..b88ad110166915173d32fd00dd6bf8b22009b601 100644
+index 9bec3b0d5c7eaccb334e2663bb1fdc42cd6eb367..d2d2cc70eac66d503efe89ded205f1a904c95a26 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2720,5 +2720,23 @@ public final class CraftServer implements Server {
+@@ -2714,5 +2714,23 @@ public final class CraftServer implements Server {
          }
          return this.adventure$audiences;
      }
