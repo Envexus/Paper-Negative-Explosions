@@ -6,10 +6,10 @@ Subject: [PATCH] Don't respond to ServerboundCommandSuggestionPacket when
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 8c82679ced26d540f708c566796ab7ed96faee65..277da3de55663e46fec47a3a41345bcd2a111d28 100644
+index 4ab3f9321f37956420549e63ce65b955ca9c3b94..fe83e4b592e13bf325e76d051df6901f22221484 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -726,6 +726,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -725,6 +725,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
              return;
          }
          // CraftBukkit end
@@ -19,5 +19,5 @@ index 8c82679ced26d540f708c566796ab7ed96faee65..277da3de55663e46fec47a3a41345bcd
 +        }
 +        // Paper end - Don't suggest if tab-complete is disabled
          // Paper start - AsyncTabCompleteEvent
-         TAB_COMPLETE_EXECUTOR.execute(() -> {
-         StringReader stringreader = new StringReader(packet.getCommand());
+         TAB_COMPLETE_EXECUTOR.execute(() -> this.handleCustomCommandSuggestions0(packet));
+     }

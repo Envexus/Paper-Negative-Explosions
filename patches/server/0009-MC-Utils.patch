@@ -10,6 +10,7 @@ public org.bukkit.craftbukkit.inventory.CraftItemStack handle
 public net.minecraft.server.level.ChunkMap getVisibleChunkIfPresent(J)Lnet/minecraft/server/level/ChunkHolder;
 public net.minecraft.server.level.ServerChunkCache mainThreadProcessor
 public net.minecraft.server.level.ServerChunkCache$MainThreadExecutor
+public net.minecraft.world.level.chunk.LevelChunkSection states
 
 diff --git a/src/main/java/com/destroystokyo/paper/util/concurrent/WeakSeqLock.java b/src/main/java/com/destroystokyo/paper/util/concurrent/WeakSeqLock.java
 new file mode 100644
@@ -2088,7 +2089,7 @@ index 0000000000000000000000000000000000000000..a743703502cea333bd4231b6557de50e
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/util/set/OptimizedSmallEnumSet.java b/src/main/java/com/destroystokyo/paper/util/set/OptimizedSmallEnumSet.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..653cbd10c7280f3aeeaaff712d083dde461da092
+index 0000000000000000000000000000000000000000..8066e27ff88454cb4bc8075d936e58a067dbe9b4
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/util/set/OptimizedSmallEnumSet.java
 @@ -0,0 +1,71 @@
@@ -2097,7 +2098,7 @@ index 0000000000000000000000000000000000000000..653cbd10c7280f3aeeaaff712d083dde
 +import java.util.Collection;
 +
 +/**
-+ * @author Spottedleaf <Spottedleaf@users.noreply.github.com>
++ * @author Spottedleaf &lt;Spottedleaf@users.noreply.github.com>
 + */
 +public final class OptimizedSmallEnumSet<E extends Enum<E>> {
 +
@@ -3481,10 +3482,10 @@ index 0000000000000000000000000000000000000000..cea9c098ade00ee87b8efc8164ab72f5
 +}
 diff --git a/src/main/java/io/papermc/paper/util/MCUtil.java b/src/main/java/io/papermc/paper/util/MCUtil.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..6d60bb9f77198de3f0692c24b3b0ae085f3a80d0
+index 0000000000000000000000000000000000000000..8ebef203d1e2584aed61bd61a93e231416eda749
 --- /dev/null
 +++ b/src/main/java/io/papermc/paper/util/MCUtil.java
-@@ -0,0 +1,533 @@
+@@ -0,0 +1,528 @@
 +package io.papermc.paper.util;
 +
 +import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -3799,7 +3800,6 @@ index 0000000000000000000000000000000000000000..6d60bb9f77198de3f0692c24b3b0ae08
 +     * Ensures the target code is running on the main thread
 +     * @param reason
 +     * @param run
-+     * @return
 +     */
 +    public static void ensureMain(String reason, Runnable run) {
 +        if (!isMainThread()) {
@@ -3946,10 +3946,6 @@ index 0000000000000000000000000000000000000000..6d60bb9f77198de3f0692c24b3b0ae08
 +     */
 +    public static Location toLocation(Entity entity) {
 +        return new Location(entity.getCommandSenderWorld().getWorld(), entity.getX(), entity.getY(), entity.getZ());
-+    }
-+
-+    public static org.bukkit.block.Block toBukkitBlock(Level world, BlockPos pos) {
-+        return world.getWorld().getBlockAt(pos.getX(), pos.getY(), pos.getZ());
 +    }
 +
 +    public static BlockPos toBlockPosition(Location loc) {
@@ -7737,10 +7733,10 @@ index 98836000cbca2a21649cb8f2a466986373405ea1..bbbf6dd8e566ecdca8794e3b03765fe7
              return false;
          } else {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 82d5c749a70f7a808c073263e861e09913c529d4..fdb24fe5504458ba2806df617464a1c41d8ba9e3 100644
+index aa3032f9dac2700f2621a860deeec49ada801939..e51bed4771dcef6201f943e9289c4a53f029f1ab 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2533,4 +2533,9 @@ public final class CraftServer implements Server {
+@@ -2531,4 +2531,9 @@ public final class CraftServer implements Server {
          return this.spigot;
      }
      // Spigot end
@@ -7873,10 +7869,10 @@ index 70165d287156f46b793eb23dd30b601289c0ffb1..758bf988432bb34aad9386e3f4e8bba6
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index d5e56ed0a1bef50c0c715a7877f43fbc80dcaa44..633242f7cb25b8cdebd8c6ce579e4b60e471cdfa 100644
+index 070f119315a83be900c1a8e83962833d7df4c485..5d2ece0c415526d8c632b507f441977e6888c2cb 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -2267,4 +2267,34 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2282,4 +2282,34 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          return this.spigot;
      }
      // Spigot end
@@ -7912,7 +7908,7 @@ index d5e56ed0a1bef50c0c715a7877f43fbc80dcaa44..633242f7cb25b8cdebd8c6ce579e4b60
 +    }
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
-index 97c8723d19233fb0a12e446594b18c50f34f11f1..cba729914a3adaee2507e2916a4cfb585869746d 100644
+index bf46aa3bd46ffabe92d58aa45ea0dfe6c98d94aa..23b83f8e98d681895b4e23cda4f3d50f85c12dd9 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
 @@ -23,6 +23,16 @@ import org.bukkit.material.MaterialData;
@@ -7933,10 +7929,10 @@ index 97c8723d19233fb0a12e446594b18c50f34f11f1..cba729914a3adaee2507e2916a4cfb58
          if (original instanceof CraftItemStack) {
              CraftItemStack stack = (CraftItemStack) original;
 diff --git a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
-index 905adf97c0d1f0d1c774a6835a5dffcfea884e58..2b80ddb42c8e5fd32b37f89e894353167c8a698e 100644
+index c017ce2ca1bc535795c958a2e509af2adf88efa9..0f7c3a44acf3c59ae43605e573f9da7f7c594647 100644
 --- a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
 +++ b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
-@@ -44,6 +44,7 @@ import org.bukkit.scheduler.BukkitWorker;
+@@ -46,6 +46,7 @@ import org.bukkit.scheduler.BukkitWorker;
   */
  public class CraftScheduler implements BukkitScheduler {
  
@@ -7944,7 +7940,7 @@ index 905adf97c0d1f0d1c774a6835a5dffcfea884e58..2b80ddb42c8e5fd32b37f89e89435316
      /**
       * The start ID for the counter.
       */
-@@ -192,6 +193,11 @@ public class CraftScheduler implements BukkitScheduler {
+@@ -194,6 +195,11 @@ public class CraftScheduler implements BukkitScheduler {
          this.runTaskTimer(plugin, (Object) task, delay, period);
      }
  
@@ -7956,7 +7952,7 @@ index 905adf97c0d1f0d1c774a6835a5dffcfea884e58..2b80ddb42c8e5fd32b37f89e89435316
      public BukkitTask runTaskTimer(Plugin plugin, Object runnable, long delay, long period) {
          CraftScheduler.validate(plugin, runnable);
          if (delay < 0L) {
-@@ -415,13 +421,20 @@ public class CraftScheduler implements BukkitScheduler {
+@@ -417,13 +423,20 @@ public class CraftScheduler implements BukkitScheduler {
                      task.run();
                      task.timings.stopTiming(); // Spigot
                  } catch (final Throwable throwable) {

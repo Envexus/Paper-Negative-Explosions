@@ -5,10 +5,10 @@ Subject: [PATCH] Move range check for block placing up
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 4ee35e2f717a5a55c9f90a6528f5c93529a92a84..b27e232689b8af2f3c9f643b9bee805f9a7a0434 100644
+index 813538573b24cc0fd30c6b67c138449809c36404..13e817da70328e4fc13327255afc88cfc848e5d2 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -1731,6 +1731,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -1738,6 +1738,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
          if (itemstack.isItemEnabled(worldserver.enabledFeatures())) {
              BlockHitResult movingobjectpositionblock = packet.getHitResult();
              Vec3 vec3d = movingobjectpositionblock.getLocation();

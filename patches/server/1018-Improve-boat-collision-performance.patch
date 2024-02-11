@@ -17,7 +17,7 @@ index edf937591abf62416bd692e40b7b7a6badbe877d..b40864e41e1506884fdefefbf3cf4833
      };
  
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 22771be445acd07d40b0a51c0a6d062e3df3ac95..fd35911a6057eed19e6b1a9cbefdfe9cd0cd998c 100644
+index 2b77cc316a8ca5bf75b4aa7f5e881d920bef094c..7d9890670b47a51839784914b0b96a994c1c6ace 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -1437,7 +1437,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
@@ -44,7 +44,7 @@ index 22771be445acd07d40b0a51c0a6d062e3df3ac95..fd35911a6057eed19e6b1a9cbefdfe9c
                          d0 = (Math.random() - Math.random()) * 0.01D;
                      }
  
-@@ -2265,7 +2266,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -2266,7 +2267,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
                  this.hurtCurrentlyUsedShield((float) -event.getDamage(DamageModifier.BLOCKING));
                  Entity entity = damagesource.getDirectEntity();
  

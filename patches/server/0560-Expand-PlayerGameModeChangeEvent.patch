@@ -94,7 +94,7 @@ index 5a26a7d6e052c0533f73b1930da6c801f23cb521..895c2cd385622fcc426e9e920ff35109
      }
  
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java b/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
-index f66ce9ae705b0fbe17a1bb437bad6808ff47ed92..37513cf5714afda6c552219c2eca8134c054d2bb 100644
+index a03d1a85019afdc42de2b8449fc38384c4dac51e..4fe571915b247ec612b2376dce57991e441f63c2 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
 @@ -73,21 +73,28 @@ public class ServerPlayerGameMode {
@@ -131,10 +131,10 @@ index f66ce9ae705b0fbe17a1bb437bad6808ff47ed92..37513cf5714afda6c552219c2eca8134
      }
  
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 6acec839ee6d7a8893016e79af76892d63a7b601..4ee35e2f717a5a55c9f90a6528f5c93529a92a84 100644
+index 189b16f5c7bad3540671019136ed0ef8dfaacf74..813538573b24cc0fd30c6b67c138449809c36404 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -2641,7 +2641,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -2637,7 +2637,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
  
                      this.player = this.server.getPlayerList().respawn(this.player, false, RespawnReason.DEATH);
                      if (this.server.isHardcore()) {
@@ -144,10 +144,10 @@ index 6acec839ee6d7a8893016e79af76892d63a7b601..4ee35e2f717a5a55c9f90a6528f5c935
                      }
                  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 537590236e9a0ac2946953ebbebe0044e17ccc72..55fec85c4adb6e92e371547b5c3d58e5adc53ce8 100644
+index deff963f73b5317be6f82945c01e45f337675103..9356752eae2499654f26fb60490490adbc1010c9 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -1517,7 +1517,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -1532,7 +1532,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          Preconditions.checkArgument(mode != null, "GameMode cannot be null");
          if (this.getHandle().connection == null) return;
  

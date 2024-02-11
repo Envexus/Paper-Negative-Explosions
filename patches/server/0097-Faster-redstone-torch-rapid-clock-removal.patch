@@ -6,10 +6,10 @@ Subject: [PATCH] Faster redstone torch rapid clock removal
 Only resize the the redstone torch list once, since resizing arrays / lists is costly
 
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index a617c69054523dda56b78f175fc8b9c134b60ae2..7c977fad2084a849266caf8e424d0e8e24e8626f 100644
+index 61056b2873a58bf8d0f70e39022ded4b1fcbc5a5..f11e00b3a7164e8af6e33a9a09328539df5405fc 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
-@@ -176,6 +176,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -171,6 +171,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
      private org.spigotmc.TickLimiter tileLimiter;
      private int tileTickPosition;
      public final Map<Explosion.CacheKey, Float> explosionDensityCache = new HashMap<>(); // Paper - Optimize explosions
@@ -18,7 +18,7 @@ index a617c69054523dda56b78f175fc8b9c134b60ae2..7c977fad2084a849266caf8e424d0e8e
      public CraftWorld getWorld() {
          return this.world;
 diff --git a/src/main/java/net/minecraft/world/level/block/RedstoneTorchBlock.java b/src/main/java/net/minecraft/world/level/block/RedstoneTorchBlock.java
-index 68da47c3ec59518a4bbeb03c196ef0e7c6b5d049..1ec5f1e984b428b125f919576686c92538f34c8b 100644
+index 68da47c3ec59518a4bbeb03c196ef0e7c6b5d049..1dbfda52a4423fb031eecad24e5766f49ecf6050 100644
 --- a/src/main/java/net/minecraft/world/level/block/RedstoneTorchBlock.java
 +++ b/src/main/java/net/minecraft/world/level/block/RedstoneTorchBlock.java
 @@ -24,7 +24,7 @@ public class RedstoneTorchBlock extends BaseTorchBlock {
@@ -62,7 +62,7 @@ index 68da47c3ec59518a4bbeb03c196ef0e7c6b5d049..1ec5f1e984b428b125f919576686c925
 +        if (list == null) {
 +            list = world.redstoneUpdateInfos = new java.util.ArrayDeque<>();
 +        }
-+
++        // Paper end - Faster redstone torch rapid clock removal
  
          if (addNew) {
              list.add(new RedstoneTorchBlock.Toggle(pos.immutable(), world.getGameTime()));

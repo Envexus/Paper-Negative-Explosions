@@ -659,10 +659,10 @@ index 985dcea9ebed2fc5a3bfb8581cbd0ee4bf89ee8f..08eb8744104f1bbbd4f96972e0fb68f1
          public static Environment getEnvironment(int id) {
              return lookup.get(id);
 diff --git a/src/main/java/org/bukkit/block/Block.java b/src/main/java/org/bukkit/block/Block.java
-index f3a18e337a579b602b1289bccdf454334a663fcf..c22f333174bd6b8860ee06a71f713e4be8fa64ec 100644
+index a71001677e2b1b0b6225a7be63b8ea5ce4456862..c7ef0386a09a07a2317c56274ed41218dfd7153d 100644
 --- a/src/main/java/org/bukkit/block/Block.java
 +++ b/src/main/java/org/bukkit/block/Block.java
-@@ -517,7 +517,7 @@ public interface Block extends Metadatable, Translatable {
+@@ -526,7 +526,7 @@ public interface Block extends Metadatable, Translatable {
       * @return a list of dropped items for this type of block
       */
      @NotNull
@@ -820,10 +820,10 @@ index f124b35ec76e6cb6a1a0dc464005087043c3efd0..f50aaddf8582be55fd4860ad374d8f22
 +@Deprecated(forRemoval = true) // Paper
  public interface LingeringPotion extends ThrownPotion { }
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 47c4096699bc0334eacf10b6403c4a4329797f0e..f52ac8b1063806e63f81a2107c4272f05314472b 100644
+index 4605153a2a8aa7b7cd0eed772c15f02f18707ec3..c58f7b4a7c05e35056a478a818a9a6cdfe99203f 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
-@@ -666,7 +666,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
+@@ -684,7 +684,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       * This may have unexpected results if the entity is not in water.
       *
       * @param swimming True if the entity is swimming.
@@ -859,10 +859,10 @@ index 95c79c5fa0c4e30201f887da6467ce5f81c8a255..7f9c4d4b430a3f0276461346ff2621ba
  
      /**
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index cb75b93f740b6d9a155a7c6073252412b5a9aac0..23ed4d9bbd0e0ed44771c1663b707b025f242c60 100644
+index 76f70e0db9409aa731d79e2c7b16d39b4c2dfc4c..ae324d684fa1fe256ae2b2c50bd0566ad0a27110 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1498,11 +1498,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1539,11 +1539,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Forces an update of the player's entire inventory.
@@ -1390,7 +1390,7 @@ index a3d40ca984202a5fec0cfcc97266f32408c37638..6aeae6b78106b8fd434614591adb5ead
  
      /**
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 83a0631a80db156ace1d977df71d5fc653b70bb6..60a25898fb17c467ffae05039fcd4d3b154a99ff 100644
+index dbd0d0610f33105ee83ab589c84e73004f684fb5..fd3d4dd231d756d51db0155a4c3ad970c4f456ed 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -8,6 +8,7 @@ import java.util.Map;
@@ -1430,7 +1430,7 @@ index 83a0631a80db156ace1d977df71d5fc653b70bb6..60a25898fb17c467ffae05039fcd4d3b
      public void setData(@Nullable MaterialData data) {
          if (data == null) {
              this.data = data;
-@@ -546,7 +552,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
+@@ -557,7 +563,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
       *
       * @return a copy of the current ItemStack's ItemData
       */
@@ -1586,7 +1586,7 @@ index 5ccae862dbac393805a47fe26c18a2f33f1e140d..72281899817c5c140cdca2afff75fbce
  
      @Override
 diff --git a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
-index 46ac120ed51274a2084719387e35e517981bbf4b..420a91a834016d3af95efd79ca92ae45c4f081c4 100644
+index f800e776329c1b42f834cb30ebf2d0ace195d1a2..f23c0c942f200a68d2620f225ab90399a9057dfc 100644
 --- a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
 +++ b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
 @@ -75,8 +75,10 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste

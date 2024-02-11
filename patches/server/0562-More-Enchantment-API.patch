@@ -9,10 +9,10 @@ public net.minecraft.world.item.enchantment.Enchantment slots
 Co-authored-by: Luis <luisc99@icloud.com>
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/enchantments/CraftEnchantment.java b/src/main/java/org/bukkit/craftbukkit/enchantments/CraftEnchantment.java
-index 92922e8eef7fa4638a01f3cefc4c46a1451e40e7..92465b2a9f1483be76004c9f80a1fe15913b3b8b 100644
+index 7aa4035a4df1ddcc71065034eafd569ca59be810..5b7579395e61684592758f408d61cffe57f8b21d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/enchantments/CraftEnchantment.java
 +++ b/src/main/java/org/bukkit/craftbukkit/enchantments/CraftEnchantment.java
-@@ -90,7 +90,7 @@ public class CraftEnchantment extends Enchantment {
+@@ -81,7 +81,7 @@ public class CraftEnchantment extends Enchantment implements Handleable<net.mine
  
      @Override
      public boolean isCursed() {
@@ -21,7 +21,7 @@ index 92922e8eef7fa4638a01f3cefc4c46a1451e40e7..92465b2a9f1483be76004c9f80a1fe15
      }
  
      @Override
-@@ -166,6 +166,55 @@ public class CraftEnchantment extends Enchantment {
+@@ -157,6 +157,55 @@ public class CraftEnchantment extends Enchantment implements Handleable<net.mine
      public String translationKey() {
          return this.handle.getDescriptionId();
      }
@@ -78,10 +78,10 @@ index 92922e8eef7fa4638a01f3cefc4c46a1451e40e7..92465b2a9f1483be76004c9f80a1fe15
  
      @Override
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index f874712c1569a30c825c1a904a3bcfbe1085200b..706c4b962837f0b881e7603ea736d364370ff36a 100644
+index 7d8d503b46b1380e4b8a52d76fc5cc55759de80b..1474177f66a1428406bec2c55cd995a172f27dcf 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-@@ -952,5 +952,21 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
+@@ -965,5 +965,21 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
      public void setHurtDirection(float hurtDirection) {
          throw new UnsupportedOperationException("Cannot set the hurt direction on a non player");
      }

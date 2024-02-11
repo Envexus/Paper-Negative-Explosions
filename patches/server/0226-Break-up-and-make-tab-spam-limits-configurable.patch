@@ -22,10 +22,10 @@ to take the burden of this into their own hand without having to rely on
 plugins doing unsafe things.
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 7080f19eab36df503ee285ed81a00624c12e056f..a93d34bee92a2d1b48ddfa7a764d4038fb7af787 100644
+index 60443fecfc6956e9863d8cf3cf74be447d48ba34..4787d49964ddb93558faa271ad27f5bbc17742f2 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -257,6 +257,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -256,6 +256,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
      private int ackBlockChangesUpTo = -1;
      // CraftBukkit start - multithreaded fields
      private final AtomicInteger chatSpamTickCount = new AtomicInteger();
@@ -33,7 +33,7 @@ index 7080f19eab36df503ee285ed81a00624c12e056f..a93d34bee92a2d1b48ddfa7a764d4038
      // CraftBukkit end
      private int dropSpamTickCount;
      private double firstGoodX;
-@@ -374,6 +375,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -373,6 +374,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
          this.keepConnectionAlive();
          // CraftBukkit start
          for (int spam; (spam = this.chatSpamTickCount.get()) > 0 && !this.chatSpamTickCount.compareAndSet(spam, spam - 1); ) ;
@@ -41,12 +41,12 @@ index 7080f19eab36df503ee285ed81a00624c12e056f..a93d34bee92a2d1b48ddfa7a764d4038
          /* Use thread-safe field access instead
          if (this.chatSpamTickCount > 0) {
              --this.chatSpamTickCount;
-@@ -697,7 +699,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -696,7 +698,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
      public void handleCustomCommandSuggestions(ServerboundCommandSuggestionPacket packet) {
          // PacketUtils.ensureRunningOnSameThread(packet, this, this.player.serverLevel()); // Paper - AsyncTabCompleteEvent; run this async
          // CraftBukkit start
 -        if (this.chatSpamTickCount.addAndGet(1) > 500 && !this.server.getPlayerList().isOp(this.player.getGameProfile())) {
 +        if (this.chatSpamTickCount.addAndGet(io.papermc.paper.configuration.GlobalConfiguration.get().spamLimiter.tabSpamIncrement) > io.papermc.paper.configuration.GlobalConfiguration.get().spamLimiter.tabSpamLimit && !this.server.getPlayerList().isOp(this.player.getGameProfile())) { // Paper - configurable tab spam limits
-             server.scheduleOnMain(() -> this.disconnect(Component.translatable("disconnect.spam"))); // Paper - AsyncTabCompleteEvent
+             this.disconnect(Component.translatable("disconnect.spam"));
              return;
          }

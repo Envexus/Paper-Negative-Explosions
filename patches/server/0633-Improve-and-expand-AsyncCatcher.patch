@@ -17,10 +17,10 @@ Async catch modifications to critical entity state
 Co-authored-by: Jake Potrebic <jake.m.potrebic@gmail.com>
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index b04460f710ed24ab94011e9d6b79953338d5b7e0..8c82679ced26d540f708c566796ab7ed96faee65 100644
+index 935cb7d0529134115fdda73f1bcaf538b7dc7c94..4ab3f9321f37956420549e63ce65b955ca9c3b94 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -1563,6 +1563,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -1570,6 +1570,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
      }
  
      public void internalTeleport(double d0, double d1, double d2, float f, float f1, Set<RelativeMovement> set) { // Paper
@@ -29,10 +29,10 @@ index b04460f710ed24ab94011e9d6b79953338d5b7e0..8c82679ced26d540f708c566796ab7ed
          if (player.isRemoved()) {
              LOGGER.info("Attempt to teleport removed player {} restricted", player.getScoreboardName());
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 378e5bfd58caf21e9ebecc900f02163c64a48073..61c8d108122e27f063d677e1d3130a4d3eeecb94 100644
+index 8dcebc2b6e8baf4ed5f269a1b9cec9e5cd754047..f1ac4256878bd5737ded1f7d3e8b51416887f545 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -1118,7 +1118,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1117,7 +1117,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
      }
  
      public boolean addEffect(MobEffectInstance mobeffect, @Nullable Entity entity, EntityPotionEffectEvent.Cause cause) {
@@ -166,7 +166,7 @@ index bbbf6dd8e566ecdca8794e3b03765fe7e426a2bd..66ab901956ca394c251c420338643d39
                  PersistentEntitySectionManager.LOGGER.warn("Entity {} wasn't found in section {} (destroying due to {})", new Object[]{this.entity, SectionPos.of(this.currentSectionKey), reason});
              }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 938b3147040a43601f425b056dc4a83ccf2564be..605c04d10b47b71787b7f3369d4fdfbb98327c1d 100644
+index 8a37dd71f1551ce27c1a729eab2a11c465b684e3..b58788161b758eee5fbaee3280c8551116e82566 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -1724,6 +1724,7 @@ public class CraftWorld extends CraftRegionAccessor implements World {
@@ -202,10 +202,10 @@ index 938b3147040a43601f425b056dc4a83ccf2564be..605c04d10b47b71787b7f3369d4fdfbb
  
          ClientboundSoundEntityPacket packet = new ClientboundSoundEntityPacket(Holder.direct(SoundEvent.createVariableRangeEvent(new ResourceLocation(sound))), net.minecraft.sounds.SoundSource.valueOf(category.name()), craftEntity.getHandle(), volume, pitch, seed);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index 711f4ca8ee42a14e40af86d93a9685b4b9a2ba99..269664d3894835e5bafc39e65ee5245ae1d74d78 100644
+index 1df7c8c94e3ed371a4cda5d72a3ceade59e454cc..cf0151ea68738783a5e8c2e49a001b3a41d0c91a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-@@ -463,6 +463,7 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
+@@ -488,6 +488,7 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
  
      @Override
      public boolean addPotionEffect(PotionEffect effect, boolean force) {

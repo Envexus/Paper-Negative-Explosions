@@ -80,10 +80,10 @@ index 33108a55c1cc305d44238d0862755af874f19395..1042b19c906e40d4a4e9ef76d6922814
          }
      }
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e53328c2387c4 100644
+index 9e0555b1e98bba6a9305c3996c69347e47d73204..bd70046b4fef307b6b8b626a65f0b4a366ab7158 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -259,6 +259,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -258,6 +258,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
      public Set<UUID> collidableExemptions = new HashSet<>();
      public boolean bukkitPickUpLoot;
      public org.bukkit.craftbukkit.entity.CraftLivingEntity getBukkitLivingEntity() { return (org.bukkit.craftbukkit.entity.CraftLivingEntity) super.getBukkitEntity(); } // Paper
@@ -91,7 +91,7 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
  
      @Override
      public float getBukkitYaw() {
-@@ -1522,13 +1523,12 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1521,13 +1522,12 @@ public abstract class LivingEntity extends Entity implements Attackable {
  
              if (this.isDeadOrDying()) {
                  if (!this.checkTotemDeathProtection(source)) {
@@ -109,16 +109,15 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
                  }
              } else if (flag1) {
                  this.playHurtSound(source);
-@@ -1679,7 +1679,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
-         if (!this.isRemoved() && !this.dead) {
+@@ -1679,6 +1679,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
              Entity entity = damageSource.getEntity();
              LivingEntity entityliving = this.getKillCredit();
--
+ 
 +            /* // Paper - move down to make death event cancellable - this is the awardKillScore below
              if (this.deathScore >= 0 && entityliving != null) {
                  entityliving.awardKillScore(this, this.deathScore, damageSource);
              }
-@@ -1691,24 +1691,59 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1690,24 +1691,59 @@ public abstract class LivingEntity extends Entity implements Attackable {
              if (!this.level().isClientSide && this.hasCustomName()) {
                  if (org.spigotmc.SpigotConfig.logNamedDeaths) LivingEntity.LOGGER.info("Named entity {} died: {}", this, this.getCombatTracker().getDeathMessage().getString()); // Spigot
              }
@@ -132,7 +131,8 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
              if (world instanceof ServerLevel) {
                  ServerLevel worldserver = (ServerLevel) world;
 +                // Paper - move below into if for onKill
-+
+ 
+-                if (entity == null || entity.killedEntity(worldserver, this)) {
 +                // Paper start
 +                org.bukkit.event.entity.EntityDeathEvent deathEvent = this.dropAllDeathLoot(damageSource);
 +                if (deathEvent == null || !deathEvent.isCancelled()) {
@@ -147,8 +147,7 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
 +                        this.clearedEquipmentSlots.clear();
 +                    }
 +                    // Paper end
- 
--                if (entity == null || entity.killedEntity(worldserver, this)) {
++
 +                    if (this.isSleeping()) {
 +                        this.stopSleeping();
 +                    }
@@ -183,7 +182,7 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
          }
      }
  
-@@ -1716,7 +1751,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1715,7 +1751,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
          if (!this.level().isClientSide) {
              boolean flag = false;
  
@@ -192,7 +191,7 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
                  if (this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
                      BlockPos blockposition = this.blockPosition();
                      BlockState iblockdata = Blocks.WITHER_ROSE.defaultBlockState();
-@@ -1745,7 +1780,11 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1744,7 +1780,11 @@ public abstract class LivingEntity extends Entity implements Attackable {
          }
      }
  
@@ -205,7 +204,7 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
          Entity entity = source.getEntity();
          int i;
  
-@@ -1760,18 +1799,27 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -1759,18 +1799,27 @@ public abstract class LivingEntity extends Entity implements Attackable {
          this.dropEquipment(); // CraftBukkit - from below
          if (this.shouldDropLoot() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
              this.dropFromLootTable(source, flag);
@@ -235,10 +234,31 @@ index 9780f8f42caa8bc5b67af85eeb8ab146b2b3a9e9..d22ce89c97107c0c6db3f911329e5332
      // CraftBukkit start
      public int getExpReward() {
 diff --git a/src/main/java/net/minecraft/world/entity/Mob.java b/src/main/java/net/minecraft/world/entity/Mob.java
-index 4ae0f36276592e37aeb5f881b713efa76d086f8e..c4b05c7e339a2ec01ee3f5e4dec0b3493788d8d2 100644
+index 4ae0f36276592e37aeb5f881b713efa76d086f8e..236b10b86cdf6e0a723d8c9f199dde9cc983198e 100644
 --- a/src/main/java/net/minecraft/world/entity/Mob.java
 +++ b/src/main/java/net/minecraft/world/entity/Mob.java
-@@ -1075,7 +1075,13 @@ public abstract class Mob extends LivingEntity implements Targeting {
+@@ -1057,6 +1057,12 @@ public abstract class Mob extends LivingEntity implements Targeting {
+ 
+     }
+ 
++    // Paper start
++    protected boolean shouldSkipLoot(EquipmentSlot slot) { // method to avoid to fallback into the global mob loot logic (i.e fox)
++        return false;
++    }
++    // Paper end
++
+     @Override
+     protected void dropCustomDeathLoot(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+         super.dropCustomDeathLoot(source, lootingMultiplier, allowDrops);
+@@ -1065,6 +1071,7 @@ public abstract class Mob extends LivingEntity implements Targeting {
+ 
+         for (int k = 0; k < j; ++k) {
+             EquipmentSlot enumitemslot = aenumitemslot[k];
++            if (this.shouldSkipLoot(enumitemslot)) continue; // Paper
+             ItemStack itemstack = this.getItemBySlot(enumitemslot);
+             float f = this.getEquipmentDropChance(enumitemslot);
+             boolean flag1 = f > 1.0F;
+@@ -1075,7 +1082,13 @@ public abstract class Mob extends LivingEntity implements Targeting {
                  }
  
                  this.spawnAtLocation(itemstack);
@@ -253,18 +273,32 @@ index 4ae0f36276592e37aeb5f881b713efa76d086f8e..c4b05c7e339a2ec01ee3f5e4dec0b349
          }
  
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Fox.java b/src/main/java/net/minecraft/world/entity/animal/Fox.java
-index 8670d8b2a08e96df787a91f36c48df8b345080dc..6124209f50300eeaab45b66c2f1a5b2944119450 100644
+index 8670d8b2a08e96df787a91f36c48df8b345080dc..950e4b476a03fb5c26351a3b4d1578975a0b0ea8 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Fox.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Fox.java
-@@ -712,15 +712,25 @@ public class Fox extends Animal implements VariantHolder<Fox.Type> {
+@@ -711,16 +711,38 @@ public class Fox extends Animal implements VariantHolder<Fox.Type> {
+         return this.getTrustedUUIDs().contains(uuid);
      }
  
++    // Paper start - handle the bitten item separately like vanilla
      @Override
 -    protected void dropAllDeathLoot(DamageSource source) {
--        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
++    protected boolean shouldSkipLoot(EquipmentSlot slot) {
++        return slot == EquipmentSlot.MAINHAND;
++    }
++    // Paper end
++
++    @Override
 +    // Paper start - Cancellable death event
 +    protected org.bukkit.event.entity.EntityDeathEvent dropAllDeathLoot(DamageSource source) {
-+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND).copy(); // Paper - modified by supercall
+         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+ 
+-        if (!itemstack.isEmpty()) {
++        boolean releaseMouth = false;
++        if (!itemstack.isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) { // Fix MC-153010
+             this.spawnAtLocation(itemstack);
++            releaseMouth = true;
++        }
 +
 +        org.bukkit.event.entity.EntityDeathEvent deathEvent = super.dropAllDeathLoot(source);
 +
@@ -273,15 +307,14 @@ index 8670d8b2a08e96df787a91f36c48df8b345080dc..6124209f50300eeaab45b66c2f1a5b29
 +        if (deathEvent == null || deathEvent.isCancelled()) {
 +            return deathEvent;
 +        }
-+        // Paper end
- 
-         if (!itemstack.isEmpty()) {
-             this.spawnAtLocation(itemstack);
++
++        if (releaseMouth) {
++            // Paper end - Cancellable death event
              this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
          }
  
 -        super.dropAllDeathLoot(source);
-+        return deathEvent; // Paper
++        return deathEvent; // Paper - Cancellable death event
      }
  
      @Override
@@ -402,10 +435,10 @@ index ecce8036e58a9ed1408e110e75980bf77c18779a..ddd512e1d7608ec051fb5adf6ec2c6bb
          this.gameEvent(GameEvent.ENTITY_DIE);
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 5f6c911cc2573be616f80faa609e372f9195ed81..c3af502148a700892ac86d56bcb4f05703d98160 100644
+index b98f26b6958cb3f874a4c0d85e2c10ec517cbbff..adcba9111415a20a4a55bb182be84c9f6d3755d7 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -2366,7 +2366,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2383,7 +2383,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
      @Override
      public void sendHealthUpdate() {
          FoodData foodData = this.getHandle().getFoodData();
@@ -422,7 +455,7 @@ index 5f6c911cc2573be616f80faa609e372f9195ed81..c3af502148a700892ac86d56bcb4f057
  
      public void injectScaledMaxHealth(Collection<AttributeInstance> collection, boolean force) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
-index b297f6eb25192079e8e388d034d4e3ede8d5ab37..3bd92edf2f4e7a63a07bd2bbae002f99484a9069 100644
+index 3ee2b011689b9d2df03947c1e04e3042b8e8c853..131fa4d389c3ddad31651f298ccd807847462f38 100644
 --- a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 +++ b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 @@ -890,9 +890,16 @@ public class CraftEventFactory {

@@ -8,10 +8,10 @@ Move collision logic to just the hasNewCollision call instead of getCubes + hasN
 CHECK ME
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index fc540b879230b5a5f8d6e01fa435ce140849a712..5674b509b6ee594d232507d5487f705c4abf7d9a 100644
+index 9e8b37f446a382204bc9ad61efed913f70a99b90..9a080c64f0478081a3ef5ae601978063ec3756da 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -553,7 +553,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -552,7 +552,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
                      return;
                  }
  
@@ -20,7 +20,7 @@ index fc540b879230b5a5f8d6e01fa435ce140849a712..5674b509b6ee594d232507d5487f705c
  
                  d6 = d3 - this.vehicleLastGoodX; // Paper - diff on change, used for checking large move vectors above
                  d7 = d4 - this.vehicleLastGoodY - 1.0E-6D; // Paper - diff on change, used for checking large move vectors above
-@@ -569,6 +569,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -568,6 +568,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
                  }
  
                  entity.move(MoverType.PLAYER, new Vec3(d6, d7, d8));
@@ -28,7 +28,7 @@ index fc540b879230b5a5f8d6e01fa435ce140849a712..5674b509b6ee594d232507d5487f705c
                  double d11 = d7;
  
                  d6 = d3 - entity.getX();
-@@ -582,15 +583,23 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -581,15 +582,23 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
                  boolean flag2 = false;
  
                  if (d10 > org.spigotmc.SpigotConfig.movedWronglyThreshold) { // Spigot
@@ -55,7 +55,7 @@ index fc540b879230b5a5f8d6e01fa435ce140849a712..5674b509b6ee594d232507d5487f705c
                      entity.absMoveTo(d0, d1, d2, f, f1);
                      this.player.absMoveTo(d0, d1, d2, this.player.getYRot(), this.player.getXRot()); // CraftBukkit
                      this.send(new ClientboundMoveVehiclePacket(entity));
-@@ -669,7 +678,32 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -668,7 +677,32 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
      }
  
      private boolean noBlocksAround(Entity entity) {

@@ -87,10 +87,10 @@ index 25ddfe8e5da65e4ac70be2820ba139e7f3852c0c..87abd6274f9da9367094bad0c28acfa4
      }
  
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index b27e232689b8af2f3c9f643b9bee805f9a7a0434..9c8188a5937206448479e9e29efcee7b938fb2cc 100644
+index 13e817da70328e4fc13327255afc88cfc848e5d2..4824c5f0f4c0e165e3622aac23e501f56e09fc73 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -2464,6 +2464,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -2471,6 +2471,11 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
      // Spigot Start
      public SocketAddress getRawAddress()
      {

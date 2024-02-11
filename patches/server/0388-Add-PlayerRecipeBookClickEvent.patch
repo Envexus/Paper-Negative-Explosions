@@ -5,10 +5,10 @@ Subject: [PATCH] Add PlayerRecipeBookClickEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index b3549abb6ff622974574b35445bd6f562f5c4aca..7d63a20a87b79608637846fda4a5a2441a05ab03 100644
+index 41c7156c03da9660ce9d0bfb6e06350e200e8aed..66727b650e31ceb587657e112a1b0e7be5d47608 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -2966,16 +2966,40 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -2962,16 +2962,40 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
              if (!this.player.containerMenu.stillValid(this.player)) {
                  ServerGamePacketListenerImpl.LOGGER.debug("Player {} interacted with invalid menu {}", this.player, this.player.containerMenu);
              } else {

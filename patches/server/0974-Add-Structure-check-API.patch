@@ -5,7 +5,7 @@ Subject: [PATCH] Add Structure check API
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 0617419975f843f3899b2cb013fd37ea631dd320..d7fb40682d446b962d9e19ca88b297c4e9a28231 100644
+index da5f8dc6b4fce78f5f6278396d58474a5cc13f12..4ae206af89a413edb09319fd4bce2a94c575c617 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -230,6 +230,12 @@ public class CraftWorld extends CraftRegionAccessor implements World {

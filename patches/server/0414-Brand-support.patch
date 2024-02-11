@@ -57,10 +57,10 @@ index e69043316372d98b122ed3788fda79cdd36849e8..6597e6e9987ddb5906909c22704fdfb6
              } catch (Exception ex) {
                  ServerGamePacketListenerImpl.LOGGER.error("Couldn\'t dispatch custom payload", ex);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index bcdb1cbb6e59681163c9800bf6576965ab331721..e34a954247488f3ba96ef354ff676d07fd36cb06 100644
+index dcea3f827a79de3581adff51f34220a1d656e8e9..8a289cd0876a8c063a2b5f75ce8eb41f4be98acf 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -2988,6 +2988,13 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -3005,6 +3005,13 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          // Paper end
      };
  

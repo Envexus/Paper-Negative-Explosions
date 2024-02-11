@@ -5,10 +5,10 @@ Subject: [PATCH] Treat sequence violations like they should be
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 2153bcc91db2907a4a99771a01e2c7884e41460a..204cf94df7b9520a0aed6e08f6d8843a3b706d3b 100644
+index ada6ba862fee7dc474d57141947f18610f6c5974..10c17dacef22caa4616e0f93e4004ca4e63b9af0 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -1957,6 +1957,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+@@ -1964,6 +1964,7 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
  
      public void ackBlockChangesUpTo(int sequence) {
          if (sequence < 0) {
